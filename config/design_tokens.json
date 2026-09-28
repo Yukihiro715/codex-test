@@ -1,0 +1,36 @@
+{
+  "brand": "WORKLENS",
+  "brandStatus": "provisional",
+  "colors": {
+    "primary": "#275EFE",
+    "ink": "#142D45",
+    "background": "#F4F7FA",
+    "surface": "#FFFFFF",
+    "muted": "#526376",
+    "border": "#D7E0E8",
+    "accent": "#EAF7B6",
+    "warningBackground": "#FFF3DC",
+    "warningText": "#784B05"
+  },
+  "layout": {
+    "maxWidth": 1240,
+    "desktopPadding": 32,
+    "mobilePadding": 20,
+    "headerHeight": 72,
+    "filterWidth": 260,
+    "detailAsideWidth": 300
+  },
+  "radii": {
+    "card": 16,
+    "button": 10
+  },
+  "fontSize": {
+    "body": 16,
+    "small": 14,
+    "cardTitle": 20,
+    "h1": 32,
+    "heroDesktop": 48,
+    "heroMobile": 34
+  },
+  "touchTargetMin": 44
+}

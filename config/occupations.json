@@ -1,0 +1,102 @@
+{
+  "version": 1,
+  "note": "職種構成は検証用の仮案。市場の順位ではない。",
+  "occupations": [
+    {
+      "slug": "driver",
+      "label": "ドライバー",
+      "description": "必要免許・配送距離・帰宅頻度で比較",
+      "specializedUi": true,
+      "compareFields": [
+        "必要免許",
+        "配送範囲",
+        "手積み",
+        "帰宅頻度"
+      ]
+    },
+    {
+      "slug": "manufacturing",
+      "label": "製造・軽作業",
+      "description": "シフト・寮・仕事内容で比較",
+      "specializedUi": true,
+      "compareFields": [
+        "シフト",
+        "寮",
+        "作業内容",
+        "重量物"
+      ]
+    },
+    {
+      "slug": "nurse",
+      "label": "看護師",
+      "description": "施設・夜勤・オンコールで比較",
+      "specializedUi": true,
+      "compareFields": [
+        "施設形態",
+        "必要資格",
+        "夜勤",
+        "オンコール"
+      ]
+    },
+    {
+      "slug": "engineer",
+      "label": "IT・エンジニア",
+      "description": "技術・出社頻度・業務形態で比較",
+      "specializedUi": true,
+      "compareFields": [
+        "技術",
+        "出社頻度",
+        "業務形態",
+        "担当工程"
+      ]
+    },
+    {
+      "slug": "care",
+      "label": "介護・福祉",
+      "description": "資格・施設・勤務時間で比較",
+      "specializedUi": false,
+      "compareFields": [
+        "施設形態",
+        "必要資格",
+        "夜勤",
+        "勤務時間"
+      ]
+    },
+    {
+      "slug": "office",
+      "label": "事務",
+      "description": "業務・勤務地・勤務時間で比較",
+      "specializedUi": false,
+      "compareFields": [
+        "業務",
+        "経験",
+        "勤務時間",
+        "雇用形態"
+      ]
+    },
+    {
+      "slug": "sales",
+      "label": "営業",
+      "description": "顧客・商材・働き方で比較",
+      "specializedUi": false,
+      "compareFields": [
+        "顧客",
+        "商材",
+        "勤務時間",
+        "雇用形態"
+      ]
+    },
+    {
+      "slug": "service",
+      "label": "飲食・販売",
+      "description": "店舗・業務・シフトで比較",
+      "specializedUi": false,
+      "compareFields": [
+        "業務",
+        "店舗",
+        "勤務時間",
+        "雇用形態"
+      ]
+    }
+  ]
+}

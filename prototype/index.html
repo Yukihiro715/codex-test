@@ -1,0 +1,1172 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>WORKLENS｜画面確認用プロトタイプ</title>
+<style>
+:root{--ink:#142d45;--blue:#275efe;--bg:#f4f7fa;--border:#d7e0e8;--muted:#526376;--lime:#eaf7b6;--white:#fff}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 -apple-system,BlinkMacSystemFont,"Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;padding-bottom:96px}button,input,select,textarea{font:inherit}button,a,input,select,textarea{-webkit-tap-highlight-color:transparent}button{cursor:pointer}button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid #275efe;outline-offset:3px}button{color:inherit}a{color:var(--blue)}.wrap{max-width:1240px;padding:0 32px;margin:auto}.demo{background:#142d45;color:#fff;text-align:center;padding:7px 16px;font-size:12px;letter-spacing:.04em}.header{height:76px;background:#fff;border-bottom:1px solid var(--border)}.header .wrap{height:100%;display:flex;align-items:center;gap:32px}.logo{font-size:23px;font-weight:850;letter-spacing:.045em;border:0;background:none;padding:0;display:flex;align-items:center;gap:10px;min-height:44px}.logomark{width:28px;height:28px;border:6px solid var(--blue);border-radius:8px;transform:rotate(-8deg);display:inline-block}.nav{display:flex;gap:20px;align-items:center;margin-left:auto}.nav button{border:0;background:none;min-height:44px;font-size:14px;font-weight:650}.nav button.active{color:var(--blue)}.tag{display:inline-flex;align-items:center;border-radius:6px;padding:3px 9px;font-size:12px;font-weight:650;background:#eaf0ff;color:#254ab2}.minor{font-size:13px;color:var(--muted)}.hero{display:grid;grid-template-columns:1.3fr .8fr;gap:50px;padding:55px 0 30px;align-items:center}.eyebrow{font-size:13px;font-weight:750;letter-spacing:.09em;color:var(--blue);margin:0 0 14px}.hero h1{font-size:45px;line-height:1.4;letter-spacing:-.035em;margin:0 0 18px}.hero p{color:var(--muted);font-size:15px;margin:0}.hero-art{border:1px solid var(--border);background:#fff;border-radius:18px;padding:24px;box-shadow:0 14px 35px #142d4509;transform:rotate(2deg)}.hero-art .caption{font-weight:750;font-size:14px;margin:0 0 14px}.artrow{display:grid;grid-template-columns:1fr 1fr;gap:10px}.arttile{background:#f6f8fb;border:1px solid #e6ebf0;border-radius:12px;padding:14px;font-size:13px}.arttile b{display:block;font-size:17px;color:var(--ink);margin-top:4px}.artbottom{margin-top:14px;padding:10px;border-radius:9px;background:var(--lime);font-weight:750;font-size:13px;text-align:center}.searchbox{padding:17px;background:#fff;border:1px solid var(--border);border-radius:16px;display:grid;grid-template-columns:1.5fr 1fr 150px;gap:12px;box-shadow:0 8px 20px #142d4505}.inputgroup label{display:block;font-size:12px;font-weight:700;color:var(--muted);margin-bottom:4px}.inputgroup input,.inputgroup select{height:46px;width:100%;border:1px solid var(--border);border-radius:9px;padding:0 12px;background:#fff;color:var(--ink);min-width:0}.primary{background:var(--blue);color:white;border:1px solid var(--blue);border-radius:10px;min-height:46px;padding:9px 20px;font-weight:750}.primary:hover{background:#184cde}.secondary{background:#fff;border:1px solid var(--border);border-radius:10px;min-height:44px;padding:8px 14px;font-size:14px;font-weight:650}.secondary:hover{border-color:var(--blue);color:var(--blue)}.secondary.selected{background:#eaf0ff;color:#174ad4;border-color:#9bb5ff}.searchbox .primary{align-self:end;height:46px}.occupation-section{padding:32px 0 34px}.sectionheading{display:flex;gap:16px;justify-content:space-between;align-items:center;margin-bottom:14px}.sectionheading h2{font-size:18px;margin:0;letter-spacing:-.015em}.roles{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.role{background:#fff;border:1px solid var(--border);padding:13px 14px;min-height:62px;display:flex;align-items:center;justify-content:space-between;text-align:left;border-radius:12px;font-size:14px;font-weight:700;gap:8px}.role em{font-size:12px;color:var(--muted);font-style:normal;font-weight:450}.role:hover,.role.selected{border-color:var(--blue);background:#eef3ff}.role span.arrow{color:var(--blue);font-size:18px}.compact-head{padding:26px 0 16px}.compact-head h1{font-size:27px;margin:0 0 4px}.breadcrumb{font-size:12px;color:var(--muted);margin-bottom:14px}.resultlayout{display:grid;grid-template-columns:250px minmax(0,1fr);gap:24px;align-items:start;padding-top:28px}.filters{background:#fff;border:1px solid var(--border);border-radius:14px;padding:20px;position:sticky;top:20px}.filters h3{font-size:16px;margin:0 0 18px}.field{margin-bottom:17px}.field label{display:block;font-size:13px;font-weight:700;margin-bottom:7px}.field select,.field input,.field textarea{width:100%;min-height:44px;border:1px solid var(--border);border-radius:8px;background:#fff;padding:8px;color:var(--ink)}.field select{font-size:14px}.field input[type=checkbox]{width:17px;min-height:17px;margin:0 8px 0 0;vertical-align:middle}.field label.check{font-size:12px;font-weight:450;display:flex;align-items:center;gap:2px}.filter-actions{display:flex;gap:8px;flex-wrap:wrap}.filter-actions button{width:100%}.resultshead{display:flex;justify-content:space-between;align-items:center;gap:14px;margin:0 0 15px}.resultshead h2{font-size:19px;margin:0}.resultshead .count{font-size:25px;color:var(--ink);margin-right:4px}.resultshead select{border:1px solid var(--border);background:white;border-radius:8px;padding:9px;font-size:13px;min-height:44px;max-width:155px}.chips{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:13px}.chips:empty{display:none}.chip{border:1px solid #c6d5ff;background:#edf2ff;color:#234ab0;padding:4px 10px;border-radius:7px;font-size:12px}.joblist{display:flex;flex-direction:column;gap:13px}.jobcard{background:white;border:1px solid var(--border);border-radius:15px;padding:23px 24px;transition:border-color .12s}.jobcard:hover{border-color:#a6bcdd}.cardhead{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}.cardtitle{font-size:20px;line-height:1.5;font-weight:750;background:transparent;border:0;padding:0;text-align:left;min-height:38px;letter-spacing:-.02em}.cardtitle:hover{color:var(--blue)}.company{font-size:13px;color:var(--muted);margin-top:3px}.savebtn{min-width:44px;min-height:44px;border:1px solid var(--border);border-radius:10px;background:#fff;font-size:22px}.savebtn.selected{color:var(--blue);background:#edf2ff;border-color:#abc0ff}.salary{font-weight:800;font-size:23px;letter-spacing:-.025em;margin:13px 0 4px}.salary small{font-size:14px;font-weight:650;letter-spacing:0;margin-right:7px}.metaline{font-size:13px;color:var(--muted);margin-bottom:12px}.facttags{display:flex;flex-wrap:wrap;gap:6px}.fact{font-size:12px;background:#f1f5f8;padding:4px 9px;border-radius:6px}.fact.unknown{background:#fff3dc;color:#784b05}.cardfooter{border-top:1px solid #edf1f5;margin-top:17px;padding-top:14px;display:flex;align-items:center;justify-content:space-between;gap:12px}.source{font-size:11px;color:var(--muted)}.cardactions{display:flex;gap:8px;flex-shrink:0}.linkbtn{border:0;background:none;color:var(--blue);padding:8px 5px;min-height:44px;font-size:13px;font-weight:750}.empty{padding:45px 20px;text-align:center;border:1px dashed var(--border);border-radius:14px;background:#fff}.empty h3{margin:0 0 8px}.notice{border:1px solid #dce5ce;background:#f4f8ed;padding:15px 20px;border-radius:12px;font-size:13px;color:#43523a;margin:26px 0}.footer{margin-top:40px;padding-top:25px;border-top:1px solid var(--border);font-size:12px;color:var(--muted)}.footer-links{display:flex;gap:16px;flex-wrap:wrap;margin:12px 0}.footer button{background:none;border:0;padding:5px 0;color:var(--muted);font-size:12px;min-height:44px}.tray{position:fixed;bottom:0;left:0;right:0;background:#142d45;color:#fff;z-index:20;box-shadow:0 -4px 24px #142d4518}.tray .wrap{display:flex;align-items:center;gap:16px;min-height:78px}.tray b{font-size:14px;flex-shrink:0}.traynames{font-size:12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1;color:#dbe6ed}.tray .primary{background:#eaf7b6;color:#203416;border-color:#eaf7b6;font-size:14px}.tray .clear{background:transparent;color:white;border:0;min-height:44px;font-size:13px}.toast{position:fixed;bottom:92px;left:50%;transform:translateX(-50%);background:#142d45;color:#fff;box-shadow:0 5px 30px #0002;padding:12px 20px;border-radius:10px;font-size:13px;z-index:150;max-width:calc(100vw - 30px);width:max-content}.hidden{display:none!important}dialog{border:0;border-radius:18px;padding:0;width:min(850px,calc(100vw - 32px));max-height:88vh;color:var(--ink);box-shadow:0 20px 70px #142d4533}dialog::backdrop{background:#10233877}.dialog-head{position:sticky;top:0;display:flex;justify-content:space-between;gap:20px;background:#fff;padding:20px 25px;border-bottom:1px solid var(--border);z-index:1}.dialog-head h2{font-size:21px;margin:0}.close{background:#f3f6f8;border:0;border-radius:8px;min-width:44px;min-height:44px;font-size:22px}.dialog-body{padding:24px 26px;background:white}.dialog-body h3{font-size:17px;margin-top:26px}.dialog-body p{font-size:14px}.detail-facts{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin:20px 0}.detail-fact{background:#fff;padding:13px 15px;font-size:14px}.detail-fact span{display:block;font-size:12px;color:var(--muted);margin-bottom:3px}.dialog-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:22px}.compare-dialog{width:min(1100px,calc(100vw - 24px))}.table-scroll{overflow:auto}table{border-collapse:collapse;width:100%;font-size:13px;min-width:660px}th,td{text-align:left;padding:13px 16px;border-bottom:1px solid var(--border);vertical-align:top}thead th{background:#f4f7fa;min-width:190px}thead th:first-child{min-width:120px}tbody th{background:#fafcfd;font-weight:650}td{line-height:1.7}.adm-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:22px 0}.adm-tile{background:white;border:1px solid var(--border);border-radius:13px;padding:18px}.adm-tile b{font-size:25px;display:block}.adm-card{background:#fff;border:1px solid var(--border);border-radius:14px;padding:20px;margin-bottom:12px}.adm-head{display:flex;justify-content:space-between;gap:15px}.adm-card h3{margin:0 0 7px;font-size:17px}.adm-card p{font-size:13px;color:var(--muted)}.mobile-filter{display:none}.section-rule{border:0;border-top:1px solid var(--border);margin:5px 0}
+@media(max-width:900px){.hero{gap:25px}.hero h1{font-size:36px}.hero-art{padding:17px}.nav{gap:8px}.resultlayout{grid-template-columns:215px minmax(0,1fr);gap:16px}.filters{padding:16px}.cardfooter{align-items:flex-start;flex-direction:column}.roles{grid-template-columns:repeat(4,1fr)}.role{font-size:12px;padding:11px}.role em{display:none}.wrap{padding:0 22px}}
+@media(max-width:680px){.wrap{padding:0 18px}.header{height:65px}.header .wrap{gap:10px}.logo{font-size:19px;gap:7px}.logomark{width:24px;height:24px;border-width:5px}.nav{gap:3px}.nav button{font-size:12px;padding:7px}.nav .nav-extra{display:none}.demo{font-size:10px;padding:6px 10px}.hero{display:block;padding:33px 0 23px}.hero h1{font-size:32px;line-height:1.5}.hero p{font-size:13px}.eyebrow{font-size:11px}.hero-art{display:none}.searchbox{grid-template-columns:1fr;padding:14px;gap:10px;border-radius:13px}.searchbox .primary{width:100%}.inputgroup input,.inputgroup select{height:46px;font-size:16px}.occupation-section{padding:25px 0 20px}.roles{grid-template-columns:1fr 1fr;gap:8px}.role{font-size:13px;min-height:57px}.sectionheading h2{font-size:17px}.sectionheading .minor{font-size:11px}.resultlayout{display:block;padding-top:21px}.filters{display:none;position:static;margin-bottom:18px}.filters.open{display:block}.mobile-filter{display:block;margin-bottom:13px;width:100%}.resultshead h2{font-size:16px}.resultshead .count{font-size:22px}.resultshead select{max-width:133px;font-size:12px}.jobcard{padding:18px 16px}.cardtitle{font-size:18px}.salary{font-size:22px}.company{font-size:12px}.fact{font-size:11px}.cardfooter{margin-top:14px;padding-top:11px;gap:7px}.cardactions{justify-content:space-between;width:100%}.source{font-size:10px}.tag{font-size:10px}.tray .wrap{gap:8px;min-height:76px;flex-wrap:wrap;padding-top:10px;padding-bottom:10px}.traynames{display:none}.tray b{flex:1;font-size:12px}.tray .primary{font-size:12px;padding:9px 12px}.tray .clear{font-size:11px}.notice{font-size:12px;padding:13px}.compact-head h1{font-size:24px}.dialog-head{padding:15px 18px;gap:10px}.dialog-head h2{font-size:18px}.dialog-body{padding:17px}.detail-facts{grid-template-columns:1fr}.adm-grid{grid-template-columns:1fr}.dialog-actions .primary{width:100%}.toast{font-size:12px}.adm-head{flex-direction:column}}
+</style></head><body>
+<div class="demo">画面確認用デモ ／ 求人・企業・金額はすべて架空です。実データ取得・応募・請求は行いません。</div>
+<header class="header"><div class="wrap"><button class="logo" onclick="setView('home')" aria-label="WORKLENS ホーム"><span class="logomark" aria-hidden="true"></span>WORKLENS</button><nav class="nav" aria-label="主なメニュー"><button id="nav-jobs" onclick="setView('results')">求人を探す</button><button id="nav-saved" onclick="setView('saved')">保存 <span id="saved-count">0</span></button><button class="nav-extra" onclick="setView('admin')">管理画面デモ</button></nav></div></header>
+<main class="wrap"><div id="consumer"><section class="hero" id="hero"><div><div class="eyebrow">仕事選びに、比較できる条件を。</div><h1>働き方の違いまで、<br>比べて探す。</h1><p>職種ごとに必要な条件をそろえて、公開求人を横断比較。<br>気になる仕事は、元の掲載ページで詳しく確認。</p></div><div class="hero-art" aria-label="比較イメージ"><p class="caption">給与の、その先も。</p><div class="artrow"><div class="arttile">勤務スタイル<b>日勤のみ</b></div><div class="arttile">必要な資格<b>条件を確認</b></div></div><div class="artbottom">同じ項目で並べると、違いが見える。</div><p class="minor" style="margin-top:12px;font-size:11px">画面の説明用イメージです</p></div></section>
+<div class="compact-head hidden" id="compact-head"><div class="breadcrumb">ホーム / 求人検索</div><h1 id="page-title">求人を探す</h1><p class="minor" id="page-subtitle">条件の違いを、同じ項目で比べましょう。</p></div>
+<form class="searchbox" id="searchform"><div class="inputgroup"><label for="query">職種・キーワード</label><input id="query" type="search" placeholder="職種、資格、企業名など" autocomplete="off"></div><div class="inputgroup"><label for="pref">勤務地</label><select id="pref"><option value="">すべてのエリア</option>東京都</option><option>神奈川県</option><option>大阪府</option><option>愛知県</option></select></div><button class="primary" type="submit">求人を探す</button></form>
+<section class="occupation-section" id="occupation-section"><div class="sectionheading"><h2>職種から探す</h2><span class="minor">職種ごとに、絞り込む条件が変わります</span></div><div class="roles" id="roles"></div></section>
+<div class="resultlayout" id="resultlayout"><aside class="filters" id="filters" aria-label="検索条件"><h3>条件を絞り込む</h3><div class="field"><label for="rolefilter">職種</label><select id="rolefilter"></select></div><div class="field"><label for="salaryunit">給与の単位</label><select id="salaryunit"><option value="">指定なし</option><option value="MONTH">月給</option><option value="YEAR">年収</option><option value="HOUR">時給</option></select></div><div class="field"><label for="salarymin">給与の下限（円）</label><input id="salarymin" type="number" min="0" step="100" placeholder="例：300000"></div><div id="special-fields"></div><div class="filter-actions"><button class="primary" onclick="applyFilters()">この条件で表示</button><button class="secondary" onclick="resetFilters()">条件をクリア</button></div><p class="minor" style="font-size:11px;margin:17px 0 0">記載のない条件を「条件に合う」とは判定しません。</p></aside><section><button class="secondary mobile-filter" onclick="toggleFilters()" aria-controls="filters" aria-expanded="false" id="filter-toggle">検索条件を開く</button><div class="resultshead"><h2><span class="count" id="result-count">0</span>件のデモ求人</h2><select aria-label="並び替え" id="sort"><option value="default">おすすめ順（デモ）</option><option value="salary">給与下限が高い順</option><option value="title">職種名順</option></select></div><div class="chips" id="chips"></div><div id="joblist" class="joblist" aria-live="polite"></div></section></div>
+<div class="notice">公開情報をもとに条件を整理するサービスの画面案です。「情報取得確認」は採用企業が募集継続を確認した意味ではありません。</div></div>
+<section id="admin" class="hidden"><div class="compact-head"><div class="breadcrumb">管理 / データソース</div><h1>ソースを止めても、サービスは止めない。</h1><p class="minor">収集・表示・SEO・広告化を個別に管理する画面案です。ここでの操作はデモだけに反映されます。</p></div><div class="adm-grid"><div class="adm-tile"><span class="minor">確認用の架空求人</span><b>24件</b></div><div class="adm-tile"><span class="minor">実ソースのライブ収集</span><b>すべてOFF</b></div><div class="adm-tile"><span class="minor">独立した公開モード</span><b>条件概要 / 全文</b></div></div><div id="sourcecards"></div><button class="secondary" onclick="setView('results')">検索画面へ戻る</button></section>
+<footer class="footer"><b style="color:var(--ink);font-size:15px">WORKLENS <span style="font-size:11px;font-weight:normal">開発仮称・商標未確認</span></b><div class="footer-links"><button onclick="showInfo()">サービスと収集方針</button><button onclick="openReport(null)">掲載訂正・削除</button><button onclick="setView('admin')">管理画面デモ</button></div><p>運営法人名・所在地・電話番号は本番公開前に設定します。このファイルは外部送信しない画面確認用です。</p></footer>
+</main>
+<div class="tray hidden" id="tray"><div class="wrap"><b id="tray-count">0件を比較中</b><span id="tray-names" class="traynames"></span><button class="clear" onclick="clearCompare()">クリア</button><button class="primary" onclick="openCompare()">違いを比較する</button></div></div>
+<div class="toast hidden" id="toast" role="status"></div>
+<dialog id="detail-dialog"><div class="dialog-head"><h2 id="detail-title"></h2><button class="close" aria-label="閉じる" onclick="document.getElementById('detail-dialog').close()">×</button></div><div class="dialog-body" id="detail-body"></div></dialog>
+<dialog id="compare-dialog" class="compare-dialog"><div class="dialog-head"><h2>働き方を、同じ項目で比較。</h2><button class="close" aria-label="閉じる" onclick="document.getElementById('compare-dialog').close()">×</button></div><div class="dialog-body"><p class="minor">最大3件。給与の単位が違う求人は、単純な金額順には並べません。</p><label style="font-size:13px;display:block;margin-bottom:15px"><input type="checkbox" id="diff-only" onchange="renderComparison()"> 違いのある項目だけ表示</label><div class="table-scroll" id="compare-table"></div></div></dialog>
+<dialog id="report-dialog"><div class="dialog-head"><h2>掲載情報の訂正・削除</h2><button class="close" aria-label="閉じる" onclick="document.getElementById('report-dialog').close()">×</button></div><form class="dialog-body" id="reportform"><p class="minor">デモのため送信は行いません。実装時は受付番号と対応状況を管理します。</p><div class="field"><label for="report-url">対象のURLまたは求人名</label><input id="report-url" required></div><div class="field"><label for="report-type">申請内容</label><select id="report-type"><option>募集が終了している</option><option>条件が異なる</option><option>掲載を停止してほしい</option><option>個人情報について</option><option>その他</option></select></div><div class="field"><label for="report-note">補足（任意）</label><textarea id="report-note" rows="3" placeholder="本人確認書類や機微情報は入力しないでください"></textarea></div><button class="primary" type="submit">受付画面を確認する（デモ）</button></form></dialog>
+<script id="jobs-data" type="application/json">[
+  {
+    "id": "demo-driver-1",
+    "title": "地場配送ドライバー",
+    "employerName": "サンプル物流A株式会社（架空）",
+    "occupation": "driver",
+    "salary": {
+      "min": 310000,
+      "max": 380000,
+      "unit": "MONTH",
+      "currency": "JPY",
+      "basis": "gross",
+      "fixedOvertimeIncluded": "unknown",
+      "fixedOvertimeHours": null,
+      "fixedOvertimeAmount": null,
+      "evidenceIds": []
+    },
+    "prefecture": "東京都",
+    "city": "江東区",
+    "employmentType": "正社員",
+    "facts": {
+      "必要免許": "中型免許",
+      "配送範囲": "地場",
+      "手積み": "なし",
+      "帰宅頻度": "毎日"
+    },
+    "sourceName": "デモ企業採用ページ",
+    "sourceUrl": "https://employer-driver-1.example/jobs/1",
+    "lastFetchedAt": "2026-09-29T00:00:00Z",
+    "sourcePostedAt": null,
+    "applicationRoute": "employer",
+    "displayMode": "facts_link",
+    "authorizedDescription": null,
+    "state": "published",
+    "demo": true
+  },
+  {
+    "id": "demo-driver-2",
+    "title": "ルート配送スタッフ",
+    "employerName": "サンプル配送B株式会社（架空）",
+    "occupation": "driver",
+    "salary": {
+      "min": 280000,
+      "max": 340000,
+      "unit": "MONTH",
+      "currency": "JPY",
+      "basis": "gross",
+      "fixedOvertimeIncluded": "unknown",
+      "fixedOvertimeHours": null,
+      "fixedOvertimeAmount": null,
+      "evidenceIds": []
+    },
+    "prefecture": "神奈川県",
+    "city": "横浜市",
+    "employmentType": "正社員",
+    "facts": {
+      "必要免許": "普通免許（AT限定可）",
+      "配送範囲": "近距離",
+      "手積み": null,
+      "帰宅頻度": "毎日"
+    },
+    "sourceName": "デモ企業採用ページ",
+    "sourceUrl": "https://employer-driver-2.example/jobs/1",
+    "lastFetchedAt": "2026-09-29T00:00:00Z",
+    "sourcePostedAt": null,
+    "applicationRoute": "employer",
+    "displayMode": "full_authorized",
+    "authorizedDescription": "これは架空の求人説明です。業務内容や条件は画面検証用に作成されています。実際の募集ではありません。",
+    "state": "published",
+    "demo": true
+  },
+  {
+    "id": "demo-driver-3",
+    "title": "長距離トラックドライバー",
+    "employerName": "サンプル運輸C株式会社（架空）",
+    "occupation": "driver",
+    "salary": {
+      "min": 380000,
+      "max": 460000,
+      "unit": "MONTH",
+      "currency": "JPY",
+      "basis": "gross",
+      "fixedOvertimeIncluded": "unknown",
+      "fixedOvertimeHours": null,
+      "fixedOvertimeAmount": null,
+      "evidenceIds": []
+    },
+    "prefecture": "大阪府",
+    "city": "大阪市",
+    "employmentType": "正社員",
+    "facts": {
+      "必要免許": "大型免許",
+      "配送範囲": "長距離",
+      "手積み": "あり",
+      "帰宅頻度": "週2回"
+    },
+    "sourceName": "デモ企業採用ページ",
+    "sourceUrl": "https://employer-driver-3.example/jobs/1",
+    "lastFetchedAt": "2026-09-29T00:00:00Z",
+    "sourcePostedAt": null,
+    "applicationRoute": "employer",
+    "displayMode": "facts_link",
+    "authorizedDescription": null,
+    "state": "published",
+    "demo": true
+  },
+  {
+    "id": "demo-manufacturing-1",
+    "title": "電子部品の組立スタッフ",
+    "employerName": "サンプル工業A株式会社（架空）",
+    "occupation": "manufacturing",
+    "salary": {
+      "min": 230000,
+      "max": 290000,
+      "unit": "MONTH",
+      "currency": "JPY",
+      "basis": "gross",
+      "fixedOvertimeIncluded": "unknown",
+      "fixedOvertimeHours": null,
+      "fixedOvertimeAmount": null,
+      "evidenceIds": []
+    },
+    "prefecture": "愛知県",
+    "city": "名古屋市",
+    "employmentType": "正社員",
+    "facts": {
+      "シフト": "日勤",
+      "寮": "あり・費用記載なし",
+      "作業内容": "組立",
+      "重量物": "なし"
+    },
+    "sourceName": "デモ企業採用ページ",
+    "sourceUrl": "https://employer-manufacturing-1.example/jobs/1",
+    "lastFetchedAt": "2026-09-29T00:00:00Z",
+    "sourcePostedAt": null,
+    "applicationRoute": "employer",
+    "displayMode": "facts_link",
+    "authorizedDescription": null,
+    "state": "published",
+    "demo": true
+  },
+  {
+    "id": "demo-manufacturing-2",
+    "title": "倉庫でのピッキング",
+    "employerName": "サンプル倉庫B株式会社（架空）",
+    "occupation": "manufacturing",
+    "salary": {
+      "min": 1400,
+      "max": 1700,
+      "unit": "HOUR",
+      "currency": "JPY",
+      "basis": "gross",
+      "fixedOvertimeIncluded": "unknown",
+      "fixedOvertimeHours": null,
+      "fixedOvertimeAmount": null,
+      "evidenceIds": []
+    },
+    "prefecture": "東京都",
+    "city": "大田区",
+    "employmentType": "パート",
+    "facts": {
+      "シフト": "日勤",
+      "寮": "なし",
+      "作業内容": "ピッキング",
+      "重量物": null
+    },
+    "sourceName": "デモ企業採用ページ",
+    "sourceUrl": "https://employer-manufacturing-2.example/jobs/1",
+    "lastFetchedAt": "2026-09-29T00:00:00Z",
+    "sourcePostedAt": null,
+    "applicationRoute": "employer",
+    "displayMode": "full_authorized",
+    "authorizedDescription": "これは架空の求人説明です。業務内容や条件は画面検証用に作成されています。実際の募集ではありません。",
+    "state": "published",
+    "demo": true
+  },
+  {
+    "id": "demo-manufacturing-3",
+    "title": "製品検査スタッフ",
+    "employerName": "サンプル製造C株式会社（架空）",
+    "occupation": "manufacturing",
+    "salary": {
+      "min": 260000,
+      "max": 320000,
+      "unit": "MONTH",
+      "currency": "JPY",
+      "basis": "gross",
+      "fixedOvertimeIncluded": "unknown",
+      "fixedOvertimeHours": null,
+      "fixedOvertimeAmount": null,
+      "evidenceIds": []
+    },
+    "prefecture": "神奈川県",
+    "city": "川崎市",
+    "employmentType": "正社員",
+    "facts": {
+      "シフト": "2交替",
+      "寮": "あり・月2万円",
+      "作業内容": "検査",
+      "重量物": "なし"
+    },
+    "sourceName": "デモ企業採用ページ",
+    "sourceUrl": "https://employer-manufacturing-3.example/jobs/1",
+    "lastFetchedAt": "2026-09-29T00:00:00Z",
+    "sourcePostedAt": null,
+    "applicationRoute": "employer",
+    "displayMode": "facts_link",
+    "authorizedDescription": null,
+    "state": "published",
+    "demo": true
+  },
+  {
+    "id": "demo-nurse-1",
+    "title": "外来看護師",
+    "employerName": "サンプルクリニックA株式会社（架空）",
+    "occupation": "nurse",
+    "salary": {
+      "min": 300000,
+      "max": 360000,
+      "unit": "MONTH",
+      "currency": "JPY",
+      "basis": "gross",
+      "fixedOvertimeIncluded": "unknown",
+      "fixedOvertimeHours": null,
+      "fixedOvertimeAmount": null,
+      "evidenceIds": []
+    },
+    "prefecture": "東京都",
+    "city": "新宿区",
+    "employmentType": "正社員",
+    "facts": {
+      "施設形態": "クリニック",
+      "必要資格": "看護師",
+      "夜勤": "なし",
+      "オンコール": "なし"
+    },
+    "sourceName": "デモ企業採用ページ",
+    "sourceUrl": "https://employer-nurse-1.example/jobs/1",
+    "lastFetchedAt": "2026-09-29T00:00:00Z",
+    "sourcePostedAt": null,
+    "applicationRoute": "employer",
+    "displayMode": "facts_link",
+    "authorizedDescription": null,
+    "state": "published",
+    "demo": true
+  },
+  {
+    "id": "demo-nurse-2",
+    "title": "訪問看護師",
+    "employerName": "サンプル訪問看護B株式会社（架空）",
+    "occupation": "nurse",
+    "salary": {
+      "min": 340000,
+      "max": 410000,
+      "unit": "MONTH",
+      "currency": "JPY",
+      "basis": "gross",
+      "fixedOvertimeIncluded": "unknown",
+      "fixedOvertimeHours": null,
+      "fixedOvertimeAmount": null,
+      "evidenceIds": []
+    },
+    "prefecture": "大阪府",
+    "city": "豊中市",
+    "employmentType": "正社員",
+    "facts": {
+      "施設形態": "訪問看護",
+      "必要資格": "看護師・普通免許",
+      "夜勤": "なし",
+      "オンコール": "月5回"
+    },
+    "sourceName": "デモ企業採用ページ",
+    "sourceUrl": "https://employer-nurse-2.example/jobs/1",
+    "lastFetchedAt": "2026-09-29T00:00:00Z",
+    "sourcePostedAt": null,
+    "applicationRoute": "employer",
+    "displayMode": "full_authorized",
+    "authorizedDescription": "これは架空の求人説明です。業務内容や条件は画面検証用に作成されています。実際の募集ではありません。",
+    "state": "published",
+    "demo": true
+  },
+  {
+    "id": "demo-nurse-3",
+    "title": "病棟看護師",
+    "employerName": "サンプル病院C株式会社（架空）",
+    "occupation": "nurse",
+    "salary": {
+      "min": 320000,
+      "max": 390000,
+      "unit": "MONTH",
+      "currency": "JPY",
+      "basis": "gross",
+      "fixedOvertimeIncluded": "unknown",
+      "fixedOvertimeHours": null,
+      "fixedOvertimeAmount": null,
+      "evidenceIds": []
+    },
+    "prefecture": "神奈川県",
+    "city": "横浜市",
+    "employmentType": "正社員",
+    "facts": {
+      "施設形態": "病院",
+      "必要資格": "看護師",
+      "夜勤": "月4回",
+      "オンコール": null
+    },
+    "sourceName": "デモ企業採用ページ",
+    "sourceUrl": "https://employer-nurse-3.example/jobs/1",
+    "lastFetchedAt": "2026-09-29T00:00:00Z",
+    "sourcePostedAt": null,
+    "applicationRoute": "employer",
+    "displayMode": "facts_link",
+    "authorizedDescription": null,
+    "state": "published",
+    "demo": true
+  },
+  {
+    "id": "demo-engineer-1",
+    "title": "フロントエンドエンジニア",
+    "employerName": "サンプルテックA株式会社（架空）",
+    "occupation": "engineer",
+    "salary": {
+      "min": 5500000,
+      "max": 7500000,
+      "unit": "YEAR",
+      "currency": "JPY",
+      "basis": "gross",
+      "fixedOvertimeIncluded": "unknown",
+      "fixedOvertimeHours": null,
+      "fixedOvertimeAmount": null,
+      "evidenceIds": []
+    },
+    "prefecture": "東京都",
+    "city": "渋谷区",
+    "employmentType": "正社員",
+    "facts": {
+      "技術": "TypeScript / React",
+      "出社頻度": "週2日",
+      "業務形態": "自社開発",
+      "担当工程": "設計・実装"
+    },
+    "sourceName": "デモ企業採用ページ",
+    "sourceUrl": "https://employer-engineer-1.example/jobs/1",
+    "lastFetchedAt": "2026-09-29T00:00:00Z",
+    "sourcePostedAt": null,
+    "applicationRoute": "employer",
+    "displayMode": "facts_link",
+    "authorizedDescription": null,
+    "state": "published",
+    "demo": true
+  },
+  {
+    "id": "demo-engineer-2",
+    "title": "バックエンドエンジニア",
+    "employerName": "サンプルシステムB株式会社（架空）",
+    "occupation": "engineer",
+    "salary": {
+      "min": 6000000,
+      "max": 8500000,
+      "unit": "YEAR",
+      "currency": "JPY",
+      "basis": "gross",
+      "fixedOvertimeIncluded": "unknown",
+      "fixedOvertimeHours": null,
+      "fixedOvertimeAmount": null,
+      "evidenceIds": []
+    },
+    "prefecture": "大阪府",
+    "city": "大阪市",
+    "employmentType": "正社員",
+    "facts": {
+      "技術": "Python / PostgreSQL",
+      "出社頻度": "フルリモート・国内",
+      "業務形態": "受託開発",
+      "担当工程": "設計・実装"
+    },
+    "sourceName": "デモ企業採用ページ",
+    "sourceUrl": "https://employer-engineer-2.example/jobs/1",
+    "lastFetchedAt": "2026-09-29T00:00:00Z",
+    "sourcePostedAt": null,
+    "applicationRoute": "employer",
+    "displayMode": "full_authorized",
+    "authorizedDescription": "これは架空の求人説明です。業務内容や条件は画面検証用に作成されています。実際の募集ではありません。",
+    "state": "published",
+    "demo": true
+  },
+  {
+    "id": "demo-engineer-3",
+    "title": "社内システム担当",
+    "employerName": "サンプル情報C株式会社（架空）",
+    "occupation": "engineer",
+    "salary": {
+      "min": null,
+      "max": null,
+      "unit": "UNKNOWN",
+      "currency": "JPY",
+      "basis": "gross",
+      "fixedOvertimeIncluded": "unknown",
+      "fixedOvertimeHours": null,
+      "fixedOvertimeAmount": null,
+      "evidenceIds": []
+    },
+    "prefecture": "愛知県",
+    "city": "名古屋市",
+    "employmentType": "正社員",
+    "facts": {
+      "技術": "SQL / 社内ツール",
+      "出社頻度": "週5日",
+      "業務形態": "社内IT",
+      "担当工程": "運用"
+    },
+    "sourceName": "デモ企業採用ページ",
+    "sourceUrl": "https://employer-engineer-3.example/jobs/1",
+    "lastFetchedAt": "2026-09-29T00:00:00Z",
+    "sourcePostedAt": null,
+    "applicationRoute": "employer",
+    "displayMode": "facts_link",
+    "authorizedDescription": null,
+    "state": "published",
+    "demo": true
+  },
+  {
+    "id": "demo-care-1",
+    "title": "介護福祉士",
+    "employerName": "サンプルケアA株式会社（架空）",
+    "occupation": "care",
+    "salary": {
+      "min": 260000,
+      "max": 310000,
+      "unit": "MONTH",
+      "currency": "JPY",
+      "basis": "gross",
+      "fixedOvertimeIncluded": "unknown",
+      "fixedOvertimeHours": null,
+      "fixedOvertimeAmount": null,
+      "evidenceIds": []
+    },
+    "prefecture": "東京都",
+    "city": "足立区",
+    "employmentType": "正社員",
+    "facts": {
+      "施設形態": "特別養護老人ホーム",
+      "必要資格": "介護福祉士",
+      "夜勤": "月4回",
+      "勤務時間": "交替制"
+    },
+    "sourceName": "デモ企業採用ページ",
+    "sourceUrl": "https://employer-care-1.example/jobs/1",
+    "lastFetchedAt": "2026-09-29T00:00:00Z",
+    "sourcePostedAt": null,
+    "applicationRoute": "employer",
+    "displayMode": "facts_link",
+    "authorizedDescription": null,
+    "state": "published",
+    "demo": true
+  },
+  {
+    "id": "demo-care-2",
+    "title": "デイサービス介護職",
+    "employerName": "サンプルデイB株式会社（架空）",
+    "occupation": "care",
+    "salary": {
+      "min": 240000,
+      "max": 280000,
+      "unit": "MONTH",
+      "currency": "JPY",
+      "basis": "gross",
+      "fixedOvertimeIncluded": "unknown",
+      "fixedOvertimeHours": null,
+      "fixedOvertimeAmount": null,
+      "evidenceIds": []
+    },
+    "prefecture": "神奈川県",
+    "city": "川崎市",
+    "employmentType": "正社員",
+    "facts": {
+      "施設形態": "デイサービス",
+      "必要資格": null,
+      "夜勤": "なし",
+      "勤務時間": "8:30〜17:30"
+    },
+    "sourceName": "デモ企業採用ページ",
+    "sourceUrl": "https://employer-care-2.example/jobs/1",
+    "lastFetchedAt": "2026-09-29T00:00:00Z",
+    "sourcePostedAt": null,
+    "applicationRoute": "employer",
+    "displayMode": "full_authorized",
+    "authorizedDescription": "これは架空の求人説明です。業務内容や条件は画面検証用に作成されています。実際の募集ではありません。",
+    "state": "published",
+    "demo": true
+  },
+  {
+    "id": "demo-care-3",
+    "title": "訪問介護スタッフ",
+    "employerName": "サンプル訪問介護C株式会社（架空）",
+    "occupation": "care",
+    "salary": {
+      "min": 1700,
+      "max": 2200,
+      "unit": "HOUR",
+      "currency": "JPY",
+      "basis": "gross",
+      "fixedOvertimeIncluded": "unknown",
+      "fixedOvertimeHours": null,
+      "fixedOvertimeAmount": null,
+      "evidenceIds": []
+    },
+    "prefecture": "大阪府",
+    "city": "堺市",
+    "employmentType": "パート",
+    "facts": {
+      "施設形態": "訪問介護",
+      "必要資格": "初任者研修以上",
+      "夜勤": "なし",
+      "勤務時間": "応相談"
+    },
+    "sourceName": "デモ企業採用ページ",
+    "sourceUrl": "https://employer-care-3.example/jobs/1",
+    "lastFetchedAt": "2026-09-29T00:00:00Z",
+    "sourcePostedAt": null,
+    "applicationRoute": "employer",
+    "displayMode": "facts_link",
+    "authorizedDescription": null,
+    "state": "published",
+    "demo": true
+  },
+  {
+    "id": "demo-office-1",
+    "title": "一般事務",
+    "employerName": "サンプル商事A株式会社（架空）",
+    "occupation": "office",
+    "salary": {
+      "min": 230000,
+      "max": 280000,
+      "unit": "MONTH",
+      "currency": "JPY",
+      "basis": "gross",
+      "fixedOvertimeIncluded": "unknown",
+      "fixedOvertimeHours": null,
+      "fixedOvertimeAmount": null,
+      "evidenceIds": []
+    },
+    "prefecture": "東京都",
+    "city": "中央区",
+    "employmentType": "正社員",
+    "facts": {
+      "業務": "書類作成・入力",
+      "経験": "未経験可",
+      "勤務時間": "9:00〜18:00",
+      "雇用形態": "正社員"
+    },
+    "sourceName": "デモ企業採用ページ",
+    "sourceUrl": "https://employer-office-1.example/jobs/1",
+    "lastFetchedAt": "2026-09-29T00:00:00Z",
+    "sourcePostedAt": null,
+    "applicationRoute": "employer",
+    "displayMode": "facts_link",
+    "authorizedDescription": null,
+    "state": "published",
+    "demo": true
+  },
+  {
+    "id": "demo-office-2",
+    "title": "営業事務",
+    "employerName": "サンプル商事B株式会社（架空）",
+    "occupation": "office",
+    "salary": {
+      "min": 240000,
+      "max": 290000,
+      "unit": "MONTH",
+      "currency": "JPY",
+      "basis": "gross",
+      "fixedOvertimeIncluded": "unknown",
+      "fixedOvertimeHours": null,
+      "fixedOvertimeAmount": null,
+      "evidenceIds": []
+    },
+    "prefecture": "愛知県",
+    "city": "名古屋市",
+    "employmentType": "正社員",
+    "facts": {
+      "業務": "受発注",
+      "経験": "経験者歓迎",
+      "勤務時間": "9:00〜18:00",
+      "雇用形態": "正社員"
+    },
+    "sourceName": "デモ企業採用ページ",
+    "sourceUrl": "https://employer-office-2.example/jobs/1",
+    "lastFetchedAt": "2026-09-29T00:00:00Z",
+    "sourcePostedAt": null,
+    "applicationRoute": "employer",
+    "displayMode": "full_authorized",
+    "authorizedDescription": "これは架空の求人説明です。業務内容や条件は画面検証用に作成されています。実際の募集ではありません。",
+    "state": "published",
+    "demo": true
+  },
+  {
+    "id": "demo-office-3",
+    "title": "経理アシスタント",
+    "employerName": "サンプル管理C株式会社（架空）",
+    "occupation": "office",
+    "salary": {
+      "min": 1500,
+      "max": 1800,
+      "unit": "HOUR",
+      "currency": "JPY",
+      "basis": "gross",
+      "fixedOvertimeIncluded": "unknown",
+      "fixedOvertimeHours": null,
+      "fixedOvertimeAmount": null,
+      "evidenceIds": []
+    },
+    "prefecture": "大阪府",
+    "city": "大阪市",
+    "employmentType": "パート",
+    "facts": {
+      "業務": "経理入力",
+      "経験": "簿記知識歓迎",
+      "勤務時間": "10:00〜16:00",
+      "雇用形態": "パート"
+    },
+    "sourceName": "デモ企業採用ページ",
+    "sourceUrl": "https://employer-office-3.example/jobs/1",
+    "lastFetchedAt": "2026-09-29T00:00:00Z",
+    "sourcePostedAt": null,
+    "applicationRoute": "employer",
+    "displayMode": "facts_link",
+    "authorizedDescription": null,
+    "state": "published",
+    "demo": true
+  },
+  {
+    "id": "demo-sales-1",
+    "title": "法人ルート営業",
+    "employerName": "サンプル販売A株式会社（架空）",
+    "occupation": "sales",
+    "salary": {
+      "min": 280000,
+      "max": 350000,
+      "unit": "MONTH",
+      "currency": "JPY",
+      "basis": "gross",
+      "fixedOvertimeIncluded": "unknown",
+      "fixedOvertimeHours": null,
+      "fixedOvertimeAmount": null,
+      "evidenceIds": []
+    },
+    "prefecture": "東京都",
+    "city": "品川区",
+    "employmentType": "正社員",
+    "facts": {
+      "顧客": "既存法人",
+      "商材": "業務用品",
+      "勤務時間": "9:00〜18:00",
+      "雇用形態": "正社員"
+    },
+    "sourceName": "デモ企業採用ページ",
+    "sourceUrl": "https://employer-sales-1.example/jobs/1",
+    "lastFetchedAt": "2026-09-29T00:00:00Z",
+    "sourcePostedAt": null,
+    "applicationRoute": "employer",
+    "displayMode": "facts_link",
+    "authorizedDescription": null,
+    "state": "published",
+    "demo": true
+  },
+  {
+    "id": "demo-sales-2",
+    "title": "ITソリューション営業",
+    "employerName": "サンプル営業B株式会社（架空）",
+    "occupation": "sales",
+    "salary": {
+      "min": 4500000,
+      "max": 6500000,
+      "unit": "YEAR",
+      "currency": "JPY",
+      "basis": "gross",
+      "fixedOvertimeIncluded": "unknown",
+      "fixedOvertimeHours": null,
+      "fixedOvertimeAmount": null,
+      "evidenceIds": []
+    },
+    "prefecture": "神奈川県",
+    "city": "横浜市",
+    "employmentType": "正社員",
+    "facts": {
+      "顧客": "法人",
+      "商材": "ITサービス",
+      "勤務時間": "フレックス",
+      "雇用形態": "正社員"
+    },
+    "sourceName": "デモ企業採用ページ",
+    "sourceUrl": "https://employer-sales-2.example/jobs/1",
+    "lastFetchedAt": "2026-09-29T00:00:00Z",
+    "sourcePostedAt": null,
+    "applicationRoute": "employer",
+    "displayMode": "full_authorized",
+    "authorizedDescription": "これは架空の求人説明です。業務内容や条件は画面検証用に作成されています。実際の募集ではありません。",
+    "state": "published",
+    "demo": true
+  },
+  {
+    "id": "demo-sales-3",
+    "title": "インサイドセールス",
+    "employerName": "サンプル営業C株式会社（架空）",
+    "occupation": "sales",
+    "salary": {
+      "min": 270000,
+      "max": 350000,
+      "unit": "MONTH",
+      "currency": "JPY",
+      "basis": "gross",
+      "fixedOvertimeIncluded": "unknown",
+      "fixedOvertimeHours": null,
+      "fixedOvertimeAmount": null,
+      "evidenceIds": []
+    },
+    "prefecture": "大阪府",
+    "city": "大阪市",
+    "employmentType": "正社員",
+    "facts": {
+      "顧客": "法人",
+      "商材": "業務支援",
+      "勤務時間": "9:00〜18:00",
+      "雇用形態": "正社員"
+    },
+    "sourceName": "デモ企業採用ページ",
+    "sourceUrl": "https://employer-sales-3.example/jobs/1",
+    "lastFetchedAt": "2026-09-29T00:00:00Z",
+    "sourcePostedAt": null,
+    "applicationRoute": "employer",
+    "displayMode": "facts_link",
+    "authorizedDescription": null,
+    "state": "published",
+    "demo": true
+  },
+  {
+    "id": "demo-service-1",
+    "title": "カフェ店舗スタッフ",
+    "employerName": "サンプルカフェA株式会社（架空）",
+    "occupation": "service",
+    "salary": {
+      "min": 1250,
+      "max": 1500,
+      "unit": "HOUR",
+      "currency": "JPY",
+      "basis": "gross",
+      "fixedOvertimeIncluded": "unknown",
+      "fixedOvertimeHours": null,
+      "fixedOvertimeAmount": null,
+      "evidenceIds": []
+    },
+    "prefecture": "東京都",
+    "city": "世田谷区",
+    "employmentType": "パート",
+    "facts": {
+      "業務": "接客・調理補助",
+      "店舗": "カフェ",
+      "勤務時間": "シフト制",
+      "雇用形態": "パート"
+    },
+    "sourceName": "デモ企業採用ページ",
+    "sourceUrl": "https://employer-service-1.example/jobs/1",
+    "lastFetchedAt": "2026-09-29T00:00:00Z",
+    "sourcePostedAt": null,
+    "applicationRoute": "employer",
+    "displayMode": "facts_link",
+    "authorizedDescription": null,
+    "state": "published",
+    "demo": true
+  },
+  {
+    "id": "demo-service-2",
+    "title": "販売スタッフ",
+    "employerName": "サンプルストアB株式会社（架空）",
+    "occupation": "service",
+    "salary": {
+      "min": 240000,
+      "max": 300000,
+      "unit": "MONTH",
+      "currency": "JPY",
+      "basis": "gross",
+      "fixedOvertimeIncluded": "unknown",
+      "fixedOvertimeHours": null,
+      "fixedOvertimeAmount": null,
+      "evidenceIds": []
+    },
+    "prefecture": "愛知県",
+    "city": "名古屋市",
+    "employmentType": "正社員",
+    "facts": {
+      "業務": "接客・売場管理",
+      "店舗": "生活雑貨",
+      "勤務時間": "シフト制",
+      "雇用形態": "正社員"
+    },
+    "sourceName": "デモ企業採用ページ",
+    "sourceUrl": "https://employer-service-2.example/jobs/1",
+    "lastFetchedAt": "2026-09-29T00:00:00Z",
+    "sourcePostedAt": null,
+    "applicationRoute": "employer",
+    "displayMode": "full_authorized",
+    "authorizedDescription": "これは架空の求人説明です。業務内容や条件は画面検証用に作成されています。実際の募集ではありません。",
+    "state": "published",
+    "demo": true
+  },
+  {
+    "id": "demo-service-3",
+    "title": "レストラン調理スタッフ",
+    "employerName": "サンプルレストランC株式会社（架空）",
+    "occupation": "service",
+    "salary": {
+      "min": 280000,
+      "max": 340000,
+      "unit": "MONTH",
+      "currency": "JPY",
+      "basis": "gross",
+      "fixedOvertimeIncluded": "unknown",
+      "fixedOvertimeHours": null,
+      "fixedOvertimeAmount": null,
+      "evidenceIds": []
+    },
+    "prefecture": "神奈川県",
+    "city": "横浜市",
+    "employmentType": "正社員",
+    "facts": {
+      "業務": "調理",
+      "店舗": "レストラン",
+      "勤務時間": "シフト制",
+      "雇用形態": "正社員"
+    },
+    "sourceName": "デモ企業採用ページ",
+    "sourceUrl": "https://employer-service-3.example/jobs/1",
+    "lastFetchedAt": "2026-09-29T00:00:00Z",
+    "sourcePostedAt": null,
+    "applicationRoute": "employer",
+    "displayMode": "facts_link",
+    "authorizedDescription": null,
+    "state": "published",
+    "demo": true
+  }
+]
+</script><script id="roles-data" type="application/json">{
+  "version": 1,
+  "note": "職種構成は検証用の仮案。市場の順位ではない。",
+  "occupations": [
+    {
+      "slug": "driver",
+      "label": "ドライバー",
+      "description": "必要免許・配送距離・帰宅頻度で比較",
+      "specializedUi": true,
+      "compareFields": [
+        "必要免許",
+        "配送範囲",
+        "手積み",
+        "帰宅頻度"
+      ]
+    },
+    {
+      "slug": "manufacturing",
+      "label": "製造・軽作業",
+      "description": "シフト・寮・仕事内容で比較",
+      "specializedUi": true,
+      "compareFields": [
+        "シフト",
+        "寮",
+        "作業内容",
+        "重量物"
+      ]
+    },
+    {
+      "slug": "nurse",
+      "label": "看護師",
+      "description": "施設・夜勤・オンコールで比較",
+      "specializedUi": true,
+      "compareFields": [
+        "施設形態",
+        "必要資格",
+        "夜勤",
+        "オンコール"
+      ]
+    },
+    {
+      "slug": "engineer",
+      "label": "IT・エンジニア",
+      "description": "技術・出社頻度・業務形態で比較",
+      "specializedUi": true,
+      "compareFields": [
+        "技術",
+        "出社頻度",
+        "業務形態",
+        "担当工程"
+      ]
+    },
+    {
+      "slug": "care",
+      "label": "介護・福祉",
+      "description": "資格・施設・勤務時間で比較",
+      "specializedUi": false,
+      "compareFields": [
+        "施設形態",
+        "必要資格",
+        "夜勤",
+        "勤務時間"
+      ]
+    },
+    {
+      "slug": "office",
+      "label": "事務",
+      "description": "業務・勤務地・勤務時間で比較",
+      "specializedUi": false,
+      "compareFields": [
+        "業務",
+        "経験",
+        "勤務時間",
+        "雇用形態"
+      ]
+    },
+    {
+      "slug": "sales",
+      "label": "営業",
+      "description": "顧客・商材・働き方で比較",
+      "specializedUi": false,
+      "compareFields": [
+        "顧客",
+        "商材",
+        "勤務時間",
+        "雇用形態"
+      ]
+    },
+    {
+      "slug": "service",
+      "label": "飲食・販売",
+      "description": "店舗・業務・シフトで比較",
+      "specializedUi": false,
+      "compareFields": [
+        "業務",
+        "店舗",
+        "勤務時間",
+        "雇用形態"
+      ]
+    }
+  ]
+}
+</script><script id="source-data" type="application/json">{
+  "schemaVersion": 1,
+  "checkedAt": "2026-09-29",
+  "note": "設定例。ライブ取得可能な完成レジストリではない。未確認の実ソースを自動有効化しない。",
+  "sources": [
+    {
+      "id": "hellowork_public",
+      "name": "ハローワーク一般公開求人",
+      "version": 1,
+      "lane": "OPEN_REUSE",
+      "hosts": [
+        "www.hellowork.mhlw.go.jp"
+      ],
+      "allowedPaths": [],
+      "termsUrl": "https://www.hellowork.mhlw.go.jp/info/sitepolicy.html",
+      "termsCheckedAt": "2026-09-29",
+      "robotsStatus": "unverified",
+      "reviewStatus": "unreviewed",
+      "reviewId": null,
+      "reviewExpiresAt": null,
+      "fetchEnabled": false,
+      "publicEnabled": false,
+      "displayMode": "none",
+      "storageMode": "facts_only",
+      "publicFields": [
+        "title",
+        "employerName",
+        "locations",
+        "salary",
+        "employmentTypes",
+        "facts",
+        "sourceName",
+        "sourceUrl",
+        "lastFetchedAt"
+      ],
+      "imageAllowed": false,
+      "seoIndexAllowed": false,
+      "jobPostingAllowed": false,
+      "commercialPromotionAllowed": false,
+      "maxRequestsPerHostPerDay": 100,
+      "maxConcurrencyPerHost": 1,
+      "minRequestIntervalMs": 10000,
+      "maxResponseBytes": 5242880,
+      "rawRetentionHours": 0,
+      "staleHideAfterHours": 168,
+      "activationNote": "転載条件のみ確認。実パス・robots・継続更新を確認してから有効化。"
+    },
+    {
+      "id": "employer_public_template",
+      "name": "企業公式採用ページ・追加テンプレート",
+      "version": 1,
+      "lane": "PUBLIC_FACT_INDEX",
+      "hosts": [],
+      "allowedPaths": [],
+      "termsUrl": null,
+      "termsCheckedAt": null,
+      "robotsStatus": "unverified",
+      "reviewStatus": "unreviewed",
+      "reviewId": null,
+      "reviewExpiresAt": null,
+      "fetchEnabled": false,
+      "publicEnabled": false,
+      "displayMode": "none",
+      "storageMode": "facts_only",
+      "publicFields": [
+        "title",
+        "employerName",
+        "locations",
+        "salary",
+        "employmentTypes",
+        "facts",
+        "sourceName",
+        "sourceUrl",
+        "lastFetchedAt"
+      ],
+      "imageAllowed": false,
+      "seoIndexAllowed": false,
+      "jobPostingAllowed": false,
+      "commercialPromotionAllowed": false,
+      "maxRequestsPerHostPerDay": 100,
+      "maxConcurrencyPerHost": 1,
+      "minRequestIntervalMs": 10000,
+      "maxResponseBytes": 5242880,
+      "rawRetentionHours": 0,
+      "staleHideAfterHours": 168,
+      "activationNote": "実企業のhost/pathを登録し内部審査。事実条件＋リンクが基本。提携契約を常に必須とはしない。"
+    },
+    {
+      "id": "engage_review",
+      "name": "エンゲージ・範囲確認候補",
+      "version": 1,
+      "lane": "DISPUTED_SCOPE",
+      "hosts": [
+        "en-gage.net"
+      ],
+      "allowedPaths": [],
+      "termsUrl": "https://en-gage.net/company/privacy/",
+      "termsCheckedAt": "2026-09-29",
+      "robotsStatus": "unverified",
+      "reviewStatus": "unreviewed",
+      "reviewId": null,
+      "reviewExpiresAt": null,
+      "fetchEnabled": false,
+      "publicEnabled": false,
+      "displayMode": "none",
+      "storageMode": "facts_only",
+      "publicFields": [
+        "title",
+        "employerName",
+        "locations",
+        "salary",
+        "employmentTypes",
+        "facts",
+        "sourceName",
+        "sourceUrl",
+        "lastFetchedAt"
+      ],
+      "imageAllowed": false,
+      "seoIndexAllowed": false,
+      "jobPostingAllowed": false,
+      "commercialPromotionAllowed": false,
+      "maxRequestsPerHostPerDay": 100,
+      "maxConcurrencyPerHost": 1,
+      "minRequestIntervalMs": 10000,
+      "maxResponseBytes": 5242880,
+      "rawRetentionHours": 0,
+      "staleHideAfterHours": 168,
+      "activationNote": "企業用規約を確認。公開求人パスの適用とrobotsは未確認。"
+    },
+    {
+      "id": "ats_review_template",
+      "name": "その他ATS・公開パス調査テンプレート",
+      "version": 1,
+      "lane": "DISPUTED_SCOPE",
+      "hosts": [],
+      "allowedPaths": [],
+      "termsUrl": null,
+      "termsCheckedAt": null,
+      "robotsStatus": "unverified",
+      "reviewStatus": "unreviewed",
+      "reviewId": null,
+      "reviewExpiresAt": null,
+      "fetchEnabled": false,
+      "publicEnabled": false,
+      "displayMode": "none",
+      "storageMode": "facts_only",
+      "publicFields": [
+        "title",
+        "employerName",
+        "locations",
+        "salary",
+        "employmentTypes",
+        "facts",
+        "sourceName",
+        "sourceUrl",
+        "lastFetchedAt"
+      ],
+      "imageAllowed": false,
+      "seoIndexAllowed": false,
+      "jobPostingAllowed": false,
+      "commercialPromotionAllowed": false,
+      "maxRequestsPerHostPerDay": 100,
+      "maxConcurrencyPerHost": 1,
+      "minRequestIntervalMs": 10000,
+      "maxResponseBytes": 5242880,
+      "rawRetentionHours": 0,
+      "staleHideAfterHours": 168,
+      "activationNote": "HRMOS/HERP/Airワーク/Talentio等の実パスと規約を調べて個別登録。名称から自動ONしない。"
+    }
+  ]
+}
+</script>
+<script>
+'use strict';
+const JOBS=JSON.parse(document.getElementById('jobs-data').textContent);const ROLES=JSON.parse(document.getElementById('roles-data').textContent).occupations;const SOURCES=JSON.parse(document.getElementById('source-data').textContent).sources;
+const $=id=>document.getElementById(id);const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));let view='home',role='',applied={unit:'',min:0,facts:{}},compared=new Set(),saved=new Set(),toastTimer;
+try{saved=new Set(JSON.parse(localStorage.getItem('worklens-demo-saved')||'[]').filter(id=>JOBS.some(j=>j.id===id)))}catch(e){}
+function label(id){return ROLES.find(r=>r.slug===id)?.label||'すべての職種'}
+function money(j){const s=j.salary,u={MONTH:'月給',YEAR:'年収',HOUR:'時給',DAY:'日給'};if(s.min==null)return '給与記載なし';const f=n=>s.unit==='HOUR'||s.unit==='DAY'?n.toLocaleString()+'円':(n/10000).toLocaleString(undefined,{maximumFractionDigits:1})+'万円';return (u[s.unit]||'')+' '+f(s.min)+(s.max!=null?'〜'+f(s.max):'〜')}
+function toast(msg){$('toast').textContent=msg;$('toast').classList.remove('hidden');clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('toast').classList.add('hidden'),3200)}
+function persist(){try{localStorage.setItem('worklens-demo-saved',JSON.stringify([...saved]))}catch(e){}$('saved-count').textContent=saved.size}
+function setView(v){view=v;$('consumer').classList.toggle('hidden',v==='admin');$('admin').classList.toggle('hidden',v!=='admin');$('hero').classList.toggle('hidden',v!=='home');$('occupation-section').classList.toggle('hidden',v!=='home');$('compact-head').classList.toggle('hidden',v==='home');$('nav-jobs').classList.toggle('active',v==='results');$('nav-saved').classList.toggle('active',v==='saved');$('page-title').textContent=v==='saved'?'保存した求人':role?label(role)+'の仕事を探す':'求人を探す';$('page-subtitle').textContent=v==='saved'?'このブラウザに保存されています。他の端末には引き継がれません。':'条件の違いを、同じ項目で比べましょう。';render();window.scrollTo(0,0)}
+function chooseRole(v){if(role!==v&&Object.keys(applied.facts).length)toast('職種専用の条件を解除しました');role=v;$('rolefilter').value=v;applied.facts={};drawSpecial();setView('results')}
+function drawRoles(){$('roles').innerHTML=ROLES.map(r=>`<button class="role ${role===r.slug?'selected':''}" onclick="chooseRole('${r.slug}')"><span>${esc(r.label)}</span><span class="arrow" aria-hidden="true">↗</span></button>`).join('');$('rolefilter').innerHTML='<option value="">すべての職種</option>'+ROLES.map(r=>`<option value="${r.slug}">${esc(r.label)}</option>`).join('');$('rolefilter').value=role}
+function drawSpecial(){const fields=ROLES.find(r=>r.slug===role)?.compareFields||[];$('special-fields').innerHTML=fields.slice(0,3).map((f,i)=>{const vals=[...new Set(JOBS.filter(j=>j.occupation===role).map(j=>j.facts[f]).filter(Boolean))];return `<div class="field"><label for="fact-${i}">${esc(f)}</label><select id="fact-${i}" data-field="${esc(f)}"><option value="">指定なし</option>${vals.map(v=>`<option value="${esc(v)}">${esc(v)}</option>`).join('')}</select></div>`}).join('')}
+function applyFilters(){let min=Number($('salarymin').value)||0;if(min&&!$('salaryunit').value){toast('給与の単位を選択してください');return}applied={unit:$('salaryunit').value,min,facts:{}};document.querySelectorAll('[data-field]').forEach(el=>{if(el.value)applied.facts[el.dataset.field]=el.value});$('filters').classList.remove('open');$('filter-toggle').setAttribute('aria-expanded','false');if(view==='home')setView('results');else render()}
+function resetFilters(){role='';applied={unit:'',min:0,facts:{}};$('query').value='';$('pref').value='';$('salaryunit').value='';$('salarymin').value='';$('rolefilter').value='';drawSpecial();render();toast('検索条件をクリアしました')}
+function toggleFilters(){const open=$('filters').classList.toggle('open');$('filter-toggle').setAttribute('aria-expanded',String(open));$('filter-toggle').textContent=open?'検索条件を閉じる':'検索条件を開く'}
+function render(){persist();drawRoles();let q=$('query').value.trim().normalize('NFKC').toLowerCase(),pref=$('pref').value;let rows=JOBS.filter(j=>j.state==='published'&&(!role||j.occupation===role)&&(!pref||j.prefecture===pref)&&(!q||[j.title,j.employerName,j.city,...Object.values(j.facts)].join(' ').normalize('NFKC').toLowerCase().includes(q))&&(!applied.unit||j.salary.unit===applied.unit)&&(!applied.min||(j.salary.min!==null&&j.salary.min>=applied.min))&&Object.entries(applied.facts).every(([k,v])=>j.facts[k]===v)&&(view!=='saved'||saved.has(j.id)));
+ if($('sort').value==='salary'){const units=new Set(rows.filter(j=>j.salary.min!==null).map(j=>j.salary.unit));if(units.size>1){toast('給与順は単位を指定して比較してください');$('sort').value='default'}else rows.sort((a,b)=>(b.salary.min??-1)-(a.salary.min??-1))}if($('sort').value==='title')rows.sort((a,b)=>a.title.localeCompare(b.title,'ja'));
+ $('result-count').textContent=rows.length;const chips=[role?label(role):'',pref,q?`「${q}」`:'',applied.unit?({MONTH:'月給',YEAR:'年収',HOUR:'時給'}[applied.unit]||applied.unit):'',applied.min?`${applied.min.toLocaleString()}円以上`:'',...Object.values(applied.facts)].filter(Boolean);$('chips').innerHTML=chips.map(t=>`<span class="chip">${esc(t)}</span>`).join('');$('joblist').innerHTML=rows.length?rows.map(card).join(''):`<div class="empty"><h3>${view==='saved'?'保存した求人がありません':'条件に合う求人がありません'}</h3><p class="minor">${view==='saved'?'気になる求人の☆を押すと、ここに保存されます。':'職種や給与などの条件を見直してください。条件を自動で変更することはありません。'}</p><button class="secondary" onclick="resetFilters()">条件をクリア</button></div>`;updateTray()}
+function card(j){return `<article class="jobcard" data-job="${j.id}"><div class="tag">${esc(label(j.occupation))} ・ 条件比較用デモ</div><div class="cardhead"><div><button class="cardtitle" onclick="openDetail('${j.id}')">${esc(j.title)}</button><div class="company">${esc(j.employerName)}</div></div><button class="savebtn ${saved.has(j.id)?'selected':''}" onclick="toggleSave('${j.id}')" aria-label="${saved.has(j.id)?'保存を解除':'求人を保存'}" aria-pressed="${saved.has(j.id)}">${saved.has(j.id)?'★':'☆'}</button></div><div class="salary">${esc(money(j))}</div><div class="metaline">${esc(j.prefecture+' '+j.city)}　/　${esc(j.employmentType)}</div><div class="facttags">${Object.entries(j.facts).slice(0,3).map(([k,v])=>`<span class="fact ${v===null?'unknown':''}">${esc(k)}：${esc(v??'記載なし')}</span>`).join('')}</div><div class="cardfooter"><div class="source">掲載元：${esc(j.sourceName)}<br>情報取得確認：2026/09/29 ・ 架空データ</div><div class="cardactions"><button class="secondary ${compared.has(j.id)?'selected':''}" onclick="toggleCompare('${j.id}')" aria-pressed="${compared.has(j.id)}">${compared.has(j.id)?'✓ 比較中':'＋ 比較へ'}</button><button class="linkbtn" onclick="openDetail('${j.id}')">条件を詳しく見る ↗</button></div></div></article>`}
+function toggleSave(id){saved.has(id)?saved.delete(id):saved.add(id);render();toast(saved.has(id)?'このブラウザに保存しました':'保存を解除しました')}
+function toggleCompare(id){if(compared.has(id))compared.delete(id);else{if(compared.size>=3){toast('比較できるのは3件までです');return}compared.add(id)}render()}
+function clearCompare(){compared.clear();render()}
+function updateTray(){$('tray').classList.toggle('hidden',compared.size===0);$('tray-count').textContent=`${compared.size}/3件を比較中`;$('tray-names').textContent=[...compared].map(id=>JOBS.find(j=>j.id===id)?.title).join(' / ')}
+function openDetail(id){const j=JOBS.find(j=>j.id===id);if(!j)return;$('detail-title').textContent=j.title;$('detail-body').innerHTML=`<span class="tag">${j.displayMode==='facts_link'?'比較用の条件概要':'許諾された詳細表示の例'}</span><p class="minor">${esc(j.employerName)}</p><div class="salary">${esc(money(j))}</div><p>${esc(j.prefecture+' '+j.city)} / ${esc(j.employmentType)}</p><div class="detail-facts">${Object.entries(j.facts).map(([k,v])=>`<div class="detail-fact"><span>${esc(k)}</span><b>${esc(v??'原文に記載なし')}</b></div>`).join('')}<div class="detail-fact"><span>固定残業代</span><b>記載なし</b></div><div class="detail-fact"><span>応募経路</span><b>元の企業採用ページ</b></div></div>${j.authorizedDescription?`<h3>仕事内容（架空原稿）</h3><p>${esc(j.authorizedDescription)}</p>`:'<p class="minor">この表示方式では原稿全文や画像を転載せず、比較に必要な条件と元ページへの案内を表示します。</p>'}<p class="minor">掲載元：${esc(j.sourceName)}<br>情報取得確認：2026/09/29<br>募集状況・条件は、必ず掲載元でご確認ください。</p><div class="dialog-actions"><button class="primary" onclick="demoOutbound()">元の求人ページで確認 ↗</button><button class="secondary" onclick="toggleCompare('${id}')">比較に追加 / 解除</button><button class="linkbtn" onclick="openReport('${id}')">訂正・削除を依頼</button></div>`;$('detail-dialog').showModal()}
+function demoOutbound(){toast('画面確認用デモです。外部サイトへの移動・応募・課金は行いません。')}
+function openCompare(){if(compared.size<2){toast('比較する求人を2件以上選んでください');return}$('diff-only').checked=false;renderComparison();$('compare-dialog').showModal()}
+function renderComparison(){const js=[...compared].map(id=>JOBS.find(j=>j.id===id));let keys=[...new Set(js.flatMap(j=>Object.keys(j.facts)))];let rows=[['企業',...js.map(j=>j.employerName)],['職種',...js.map(j=>label(j.occupation))],['給与',...js.map(j=>money(j))],['勤務地',...js.map(j=>j.prefecture+' '+j.city)],['雇用形態',...js.map(j=>j.employmentType)],...keys.map(k=>[k,...js.map(j=>Object.prototype.hasOwnProperty.call(j.facts,k)?j.facts[k]??'記載なし':'対象外')]),['固定残業代',...js.map(j=>'記載なし')],['情報取得確認',...js.map(j=>'2026/09/29')]];if($('diff-only').checked)rows=rows.filter(r=>new Set(r.slice(1)).size>1);$('compare-table').innerHTML=`<table><caption style="text-align:left;margin-bottom:10px;font-size:12px">架空求人 ${js.length}件の条件比較</caption><thead><tr><th scope="col">比較する項目</th>${js.map(j=>`<th scope="col">${esc(j.title)}<br><button class="linkbtn" onclick="demoOutbound()">元ページで確認 ↗</button></th>`).join('')}</tr></thead><tbody>${rows.map(r=>`<tr><th scope="row">${esc(r[0])}</th>${r.slice(1).map(v=>`<td>${esc(v)}</td>`).join('')}</tr>`).join('')}</tbody></table>`}
+function openReport(id){if($('detail-dialog').open)$('detail-dialog').close();$('report-url').value=id?JOBS.find(j=>j.id===id).title:'';$('report-note').value='';$('report-dialog').showModal()}
+function showInfo(){$('detail-title').textContent='このサービスの方向性';$('detail-body').innerHTML='<p>全国・全職種へ広げられる共通基盤と、職種別の検索・比較画面を組み合わせます。</p><p>「収集できる」「本文を表示できる」「検索エンジンに掲載できる」「課金できる」は別々に管理します。公開求人の事実情報とリンクを中心に小さく検証し、実績後に広告・求人連携を広げます。</p><p>このファイルはデザイン参考の静的プロトタイプです。検索は架空の24件だけを使用し、外部通信、求人収集、応募受付、実請求はしません。</p>';$('detail-dialog').showModal()}
+function renderSources(){$('sourcecards').innerHTML=SOURCES.map(s=>`<article class="adm-card"><div class="adm-head"><div><h3>${esc(s.name)}</h3><span class="tag">${esc(s.lane)}</span></div><button class="secondary" onclick="toast('デモではライブ収集を有効にできません。実装時は対象パス・robots・利用範囲の確認を記録します。')">状態：確認待ち / OFF</button></div><p>${esc(s.activationNote)}</p><div class="minor">収集 OFF　／　公開 OFF　／　画像 OFF　／　JobPosting OFF　／　課金 OFF</div></article>`).join('')}
+$('searchform').addEventListener('submit',e=>{e.preventDefault();setView('results')});$('rolefilter').addEventListener('change',e=>chooseRole(e.target.value));$('sort').addEventListener('change',render);$('reportform').addEventListener('submit',e=>{e.preventDefault();$('report-dialog').close();toast('受付画面の確認が完了しました。実際の申請は送信していません。')});drawRoles();drawSpecial();renderSources();render();
+</script></body></html>
