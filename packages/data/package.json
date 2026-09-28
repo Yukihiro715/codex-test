@@ -1,0 +1,19 @@
+{
+  "name": "@worklens/data",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Repositoryインターフェイスとfixture実装（M1でDB/検索エンジン実装に差し替え）",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@worklens/domain": "0.0.0",
+    "zod": "4.6.5"
+  }
+}

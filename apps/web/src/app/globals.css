@@ -1,0 +1,176 @@
+@import 'tailwindcss';
+
+/* config/design_tokens.json と同じ値（WORKLENS 開発仮称） */
+@theme {
+  --color-primary: #275efe;
+  --color-primary-hover: #184cde;
+  --color-primary-soft: #eaf0ff;
+  --color-primary-ink: #1a47c9;
+  --color-ink: #142d45;
+  --color-page: #f4f7fa;
+  --color-surface: #ffffff;
+  --color-muted: #526376;
+  --color-line: #d7e0e8;
+  --color-line-soft: #edf1f5;
+  --color-accent: #eaf7b6;
+  --color-accent-ink: #203416;
+  --color-warn-bg: #fff3dc;
+  --color-warn: #784b05;
+  --color-danger: #b42318;
+  --color-danger-soft: #fdecea;
+  --color-note-bg: #f4f8ed;
+  --color-note-ink: #3b4f2f;
+
+  --font-sans: 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', 'Yu Gothic UI', 'Yu Gothic', Meiryo, system-ui, sans-serif;
+
+  --radius-card: 16px;
+  --radius-btn: 10px;
+}
+
+@utility page-container {
+  margin-inline: auto;
+  width: 100%;
+  max-width: 1240px;
+  padding-inline: 20px;
+  @media (width >= 64rem) {
+    padding-inline: 32px;
+  }
+}
+
+/* 長い社名・英数字の混在でも横にはみ出さない */
+@utility text-wrap-anywhere {
+  overflow-wrap: anywhere;
+  word-break: normal;
+  line-break: strict;
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-page);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-size: 16px;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  :where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+    outline: 3px solid var(--color-primary);
+    outline-offset: 2px;
+    border-radius: 6px;
+  }
+
+  a {
+    color: var(--color-primary);
+  }
+
+  /* 文中のリンクは色だけで区別しない（下線を付ける） */
+  :where(p, li, dd) > a:not([class]) {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  button:not(:disabled),
+  [role='button']:not([aria-disabled='true']),
+  summary {
+    cursor: pointer;
+  }
+
+  input,
+  select,
+  textarea {
+    font-size: 16px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer components {
+  .field-input {
+    width: 100%;
+    min-height: 44px;
+    border: 1px solid var(--color-line);
+    border-radius: 8px;
+    background: var(--color-surface);
+    padding: 8px 12px;
+    color: var(--color-ink);
+  }
+
+  .field-input:disabled {
+    background: #f1f4f7;
+    color: #6b7b8c;
+  }
+
+  .field-input[aria-invalid='true'] {
+    border-color: var(--color-danger);
+  }
+
+  .check-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 44px;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  .check-row input[type='checkbox'],
+  .check-row input[type='radio'] {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    accent-color: var(--color-primary);
+  }
+
+  .skeleton {
+    background: linear-gradient(90deg, #e8edf2 0%, #f3f6f9 50%, #e8edf2 100%);
+    background-size: 200% 100%;
+    animation: skeleton 1.4s ease-in-out infinite;
+    border-radius: 8px;
+  }
+
+  @keyframes sheet-up {
+    from {
+      transform: translateY(24px);
+      opacity: 0.6;
+    }
+    to {
+      transform: none;
+      opacity: 1;
+    }
+  }
+
+  @keyframes sheet-left {
+    from {
+      transform: translateX(24px);
+      opacity: 0.6;
+    }
+    to {
+      transform: none;
+      opacity: 1;
+    }
+  }
+
+  @keyframes skeleton {
+    0% {
+      background-position: 200% 0;
+    }
+    100% {
+      background-position: -200% 0;
+    }
+  }
+}

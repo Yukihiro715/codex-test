@@ -49,3 +49,11 @@
 - 完了前に lint / typecheck / unit / e2e / build を実行。失敗や未実施を隠さない。
 - 納品時は変更点、起動方法、テスト結果、未完了、本番前の外部設定を短く報告。
 - 新規クラウド課金・実データ公開・広告請求・本番デプロイ・git pushは自動実行しない。
+
+## このリポジトリでの実装メモ（M0時点）
+- 構成は npm workspaces：`apps/web`（Next.js 16 App Router）、`packages/domain`（型・ルール・検索。フレームワーク非依存）、`packages/data`（Repository と fixture 実装）。ルート直下の `index.html` `script.js` `styles.css` は別件のLPなので変更しない。
+- コマンド：`npm run dev` `build` `lint` `typecheck` `test` `test:e2e` `check`。DB・worker系のスクリプトはM1で追加する。
+- Next.js 16 のAPI・規約は `node_modules/next/dist/docs/` の同梱ドキュメントで確認する（middleware は `proxy.ts`、params/searchParams は Promise など）。
+- 検索条件の状態はURLだけ。条件の意味（不明は適合させない、単位違いを混ぜない等）は `packages/domain` の `searchJobs` と単体テストを基準にし、M1の検索エンジン実装も同じテストで確認する。
+- e2e は `html[data-hydrated]` と `[data-client-ready]` を待ってから操作する（`apps/web/e2e/helpers.ts`）。
+- 仮定・判断は `docs/DECISIONS_LOG.md`、M0の結果と未実施項目は `docs/M0_REPORT.md`。

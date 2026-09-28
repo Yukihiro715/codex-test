@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "note": "M0デモ用の架空PR（sandbox）。実請求・実契約ではない。ENABLE_BILLING=false の間は課金しない。",
+  "campaigns": [
+    {
+      "id": "demo-campaign-1",
+      "jobId": "demo-engineer-2",
+      "status": "active",
+      "authorityVerified": true,
+      "agreementVerified": true,
+      "cpcJpy": 100,
+      "budgetRemainingJpy": 3000,
+      "startsAt": "2026-09-01T00:00:00Z",
+      "endsAt": "2026-12-31T14:59:59Z",
+      "sandbox": true
+    },
+    {
+      "id": "demo-campaign-2",
+      "jobId": "demo-nurse-2",
+      "status": "active",
+      "authorityVerified": true,
+      "agreementVerified": true,
+      "cpcJpy": 100,
+      "budgetRemainingJpy": 0,
+      "startsAt": "2026-09-01T00:00:00Z",
+      "endsAt": "2026-12-31T14:59:59Z",
+      "sandbox": true
+    }
+  ]
+}
