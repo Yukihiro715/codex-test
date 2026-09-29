@@ -29,6 +29,7 @@ import { PostedDate, StaleNotice } from '@/components/jobs/job-card';
 import { TrackView } from '@/components/jobs/track-view';
 import { getJobForRequest } from '@/server/jobs';
 import { getConfig, isDemoMode } from '@/server/env';
+import { operatorFullName } from '@/lib/site';
 
 export async function generateMetadata({ params }: PageProps<'/jobs/[id]'>): Promise<Metadata> {
   const { id } = await params;
@@ -40,6 +41,7 @@ export async function generateMetadata({ params }: PageProps<'/jobs/[id]'>): Pro
   const robots = jobDetailRobots(job, source ?? { seoIndexAllowed: false }, { demo: isDemoMode() });
   return {
     title: `${job.title}（${job.employerName}）`,
+    alternates: { canonical: `/jobs/${job.id}` },
     description: `${occupationLabel(job.occupation)}・${formatSalary(job.salary)}・${locationText(job) ?? ''}。比較用の条件概要です。募集状況は掲載元でご確認ください。`,
     robots,
   };
@@ -170,7 +172,9 @@ export default async function JobDetailPage({ params }: PageProps<'/jobs/[id]'>)
               </div>
             </dl>
             {job.applicationRoute === 'hellowork' ? (
-              <p className="mt-2 text-xs text-muted">このページの運営事業者：未設定（本番公開前に設定・表示します）</p>
+              <p className="mt-2 rounded-lg bg-page px-3 py-2 text-sm font-bold" data-testid="page-operator">
+                このページの運営事業者：{operatorFullName()}
+              </p>
             ) : null}
             <p className="mt-3 flex items-start gap-2 rounded-xl border border-[#dce5ce] bg-note-bg p-3 text-sm text-note-ink">
               <Info aria-hidden className="mt-0.5 size-4 shrink-0" />

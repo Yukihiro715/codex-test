@@ -2,13 +2,16 @@
 
 import { useState } from 'react';
 import { CircleCheck } from 'lucide-react';
-import { REPORT_DETAILS_MAX, REPORT_TYPES, REPORTER_ROLES, type ReportType } from '@worklens/domain';
+import { REPORT_DETAILS_MAX, REPORT_TYPES, REPORTER_ROLES, reportNeedsTarget, type ReportType } from '@worklens/domain';
 import { Button } from '@/components/ui/button';
 import { track } from '@/lib/track';
 
 type Status = { kind: 'idle' } | { kind: 'submitting' } | { kind: 'done'; receiptId: string } | { kind: 'error'; message: string };
 
-/** 訂正・削除の申請フォーム（S07）。返信を希望する場合だけ連絡先を入力する。 */
+/**
+ * 訂正・削除の申請フォーム（S07）。返信を希望する場合だけ連絡先を入力する。
+ * 電話窓口を置かないため、サービス・個人情報の取扱いについての問い合わせ（inquiry）もここで受け付ける。
+ */
 export function ReportForm({ jobId, jobTitle, defaultUrl = '' }: { jobId: string | null; jobTitle: string | null; defaultUrl?: string }) {
   const [type, setType] = useState<ReportType | ''>('');
   const [targetUrl, setTargetUrl] = useState(defaultUrl);
@@ -32,7 +35,7 @@ export function ReportForm({ jobId, jobTitle, defaultUrl = '' }: { jobId: string
           受付番号：<span className="font-mono text-base font-bold" data-testid="receipt-id">{status.receiptId}</span>
         </p>
         <p className="mt-3 text-sm text-muted">
-          対象の求人を確認し、必要な対応を行います。自動返信メールは送信していません（デモ環境のため、申請内容は保存・送信されません）。お問い合わせの際は受付番号をお知らせください。
+          内容を確認し、必要な対応を行います。自動返信メールは送信していません（デモ環境のため、申請内容は保存・送信されません）。お問い合わせの際は受付番号をお知らせください。
         </p>
       </div>
     );
@@ -51,7 +54,7 @@ export function ReportForm({ jobId, jobTitle, defaultUrl = '' }: { jobId: string
     const nextErrors: Record<string, string> = {};
     if (!type) nextErrors.type = '申請の種類を選んでください';
     if (!details.trim()) nextErrors.details = '内容を入力してください';
-    if (!jobId && !targetUrl.trim()) nextErrors.targetUrl = '対象の求人ページのURLを入力してください';
+    if (reportNeedsTarget(type) && !jobId && !targetUrl.trim()) nextErrors.targetUrl = '対象の求人ページのURLを入力してください';
     if (wantsReply && !email.trim()) nextErrors.email = '返信先のメールアドレスを入力してください';
     setErrors(nextErrors);
     if (Object.keys(nextErrors).length > 0) {
@@ -100,7 +103,7 @@ export function ReportForm({ jobId, jobTitle, defaultUrl = '' }: { jobId: string
           </p>
         ) : null}
         <label htmlFor="report-targetUrl" className="mt-3 block text-sm font-bold">
-          対象ページのURL（掲載元のページなど）{jobId ? '（任意）' : ''}
+          対象ページのURL（掲載元のページなど）{jobId || !reportNeedsTarget(type) ? '（任意）' : ''}
         </label>
         <input
           id="report-targetUrl"
@@ -134,7 +137,7 @@ export function ReportForm({ jobId, jobTitle, defaultUrl = '' }: { jobId: string
           内容
         </label>
         <p id="report-details-hint" className="text-xs text-muted">
-          どの条件がどのように違うかなど（{REPORT_DETAILS_MAX}文字以内）。機微な個人情報は入力しないでください。
+          どの条件がどのように違うか、お問い合わせの内容など（{REPORT_DETAILS_MAX}文字以内）。機微な個人情報は入力しないでください。
         </p>
         <textarea
           id="report-details"

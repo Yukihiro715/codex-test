@@ -6,16 +6,21 @@ import { SiteFooter } from '@/components/layout/site-footer';
 import { DemoBanner } from '@/components/layout/demo-banner';
 import { CompareTray } from '@/components/layout/compare-tray';
 import { HydrationMarker } from '@/components/layout/hydration-marker';
-import { isDemoMode } from '@/server/env';
+import { SITE, titleSuffix } from '@/lib/site';
+import { getSiteUrl, isDemoMode } from '@/server/env';
 
 export async function generateMetadata(): Promise<Metadata> {
   const demo = isDemoMode();
+  const suffix = titleSuffix(demo);
   return {
+    metadataBase: new URL(getSiteUrl()),
     title: {
-      default: 'WORKLENS（開発仮称）｜働き方の違いまで、比べて探す。',
-      template: '%s｜WORKLENS（開発仮称）',
+      default: `${SITE.name}${demo ? '（デモ）' : ''}｜${SITE.tagline}`,
+      template: `%s${suffix}`,
     },
-    description: '職種ごとに必要な条件をそろえて、公開求人を横断比較。気になる仕事は、元の掲載ページで詳しく確認できます。',
+    description: SITE.description,
+    applicationName: SITE.name,
+    openGraph: { siteName: SITE.name, locale: 'ja_JP', type: 'website' },
     // デモ・ステージングはnoindex（本番の個別判定は各ページで行う）
     robots: demo ? { index: false, follow: false } : undefined,
   };
@@ -41,7 +46,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
             本文へスキップ
           </a>
           {demo ? <DemoBanner /> : null}
-          <SiteHeader />
+          <SiteHeader demo={demo} />
           <main id="main" tabIndex={-1} className="outline-none">
             {children}
           </main>

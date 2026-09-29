@@ -13,6 +13,9 @@ const PAGES = [
   '/report?jobId=demo-driver-4',
   '/sources',
   '/employers',
+  '/about',
+  '/terms',
+  '/privacy',
 ];
 
 for (const path of PAGES) {

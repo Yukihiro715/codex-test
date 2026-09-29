@@ -1,0 +1,87 @@
+{
+  "schemaVersion": 1,
+  "id": "SR-2026-0003",
+  "sourceId": "ats_review_template",
+  "sourceVersion": 1,
+  "title": "採用管理システム（ATS）上の公開求人ページ（HRMOS・HERP・Talentio・Airワークの調査メモ）",
+  "lane": "DISPUTED_SCOPE",
+  "scope": {
+    "hosts": ["hrmos.co", "herp.careers", "open.talentio.com", "arwrk.net"],
+    "paths": [],
+    "employer": null,
+    "access": "html_page",
+    "discovery": "企業の公式採用サイトからリンクされている求人ページだけを対象にし、ATSのホスト全体は巡回しない。ATSごと・企業ごとに別のソースとして登録し、個別の審査記録を作る。"
+  },
+  "terms": {
+    "url": null,
+    "checkedAt": null,
+    "contentSha256": null,
+    "appliesToService": "unclear",
+    "automatedAccess": "unclear",
+    "reuse": "unclear",
+    "conditions": [],
+    "notes": "各ATSの利用規約（閲覧者・求職者向け）は未確認。Airワークは無料で Indeed や Google などに自動転載し、有料の Indeed PLUS で連携求人サイトに掲載する。HRMOS・HERP の Indeed 連携は応募情報の取り込みで、求人の配信ではない。Talentio の公式サイトは取得できなかった（403、回避していない）。"
+  },
+  "robots": {
+    "url": null,
+    "fetchedAt": null,
+    "httpStatus": null,
+    "userAgentToken": "KyujinMapBot",
+    "matchedGroup": null,
+    "result": "unknown",
+    "matchedRules": [],
+    "contentSha256": null
+  },
+  "basis": "",
+  "issues": [
+    {
+      "id": "ATS-1",
+      "summary": "ATSごとの利用規約（閲覧者・求職者向け）と、公開求人ページへの適用を確認していない。",
+      "severity": "blocker",
+      "status": "open",
+      "resolution": null
+    },
+    {
+      "id": "ATS-2",
+      "summary": "robots.txt（2026-09-29、調査用の取得）：hrmos.co は404、herp.careers は * で /ref/・/*?viaCareers=・/apply$ だけを禁止、open.talentio.com は全許可、arwrk.net は * と非標準の1行だけ。求人ページのホストかどうかも含め、ATSごとに本番のUAで取得し直す。",
+      "severity": "major",
+      "status": "open",
+      "resolution": null
+    },
+    {
+      "id": "ATS-3",
+      "summary": "HRMOS・HERP の求人ページには JobPosting の JSON-LD がある（各1件で確認）。終了した HRMOS の求人は404・noindex。",
+      "severity": "minor",
+      "status": "accepted",
+      "resolution": "JSON-LD は抽出の形式としてだけ使い、収集・転載の許諾の根拠にしない。"
+    },
+    {
+      "id": "ATS-4",
+      "summary": "新しい求人検索サービスがATSの求人配信先になる公開手続きは、どのベンダーでも見つからない（Indeed PLUS の連携サイトは個別の参画）。",
+      "severity": "minor",
+      "status": "open",
+      "resolution": null
+    }
+  ],
+  "fields": { "acquire": [], "display": [] },
+  "storage": { "mode": "facts_only", "rawRetentionHours": 0 },
+  "displayMode": "none",
+  "image": { "allowed": false, "basis": null },
+  "outbound": { "hosts": [], "applicationRoute": "employer" },
+  "seo": { "indexAllowed": false, "jobPostingAllowed": false },
+  "promotion": { "allowed": false, "basis": null },
+  "crawl": { "maxRequestsPerDay": 100, "maxConcurrency": 1, "minIntervalMs": 10000 },
+  "freshness": { "recheckHours": 24, "staleHideAfterHours": 168 },
+  "owner": "運営責任者（未指名）",
+  "reviewers": [],
+  "legal": { "required": true, "status": "not_requested", "summary": null },
+  "proposal": "ATSごとに規約を確認したうえで、企業の公式採用サイトから案内されている求人に限り、企業単位の facts_link から始める。企業から停止の依頼があれば即時に止める。JobPosting は出力しない。",
+  "decision": "pending",
+  "decidedAt": null,
+  "expiresAt": null,
+  "evidence": [
+    { "label": "Airワーク 採用管理 機能ページ", "url": "https://airregi.jp/work/recruitment/function", "capturedAt": "2026-09-29T00:50:00Z", "sha256": null },
+    { "label": "HRMOS採用 お知らせ（連携媒体の拡大）", "url": "https://hrmos.co/info/news/20220801-2/", "capturedAt": "2026-09-29T00:50:00Z", "sha256": null }
+  ],
+  "notes": "2026-09-29 の調査にもとづく調査メモ（起案：Claude Code）。この記録では有効化しない。実際に扱う場合は、ATSごと（例：hrmos_jobs）に source_registry へ登録し、その審査記録を作る。"
+}

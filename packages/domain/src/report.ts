@@ -6,7 +6,8 @@ export const REPORT_TYPES = [
   { value: 'incorrect', label: '掲載されている条件が違う' },
   { value: 'takedown', label: '掲載の停止を希望する' },
   { value: 'personal_info', label: '個人情報が掲載されている' },
-  { value: 'other', label: 'その他' },
+  { value: 'other', label: 'その他（求人について）' },
+  { value: 'inquiry', label: 'サービスについてのお問い合わせ（個人情報の取扱い・広告掲載を含む）' },
 ] as const;
 
 export const REPORTER_ROLES = [
@@ -18,6 +19,14 @@ export const REPORTER_ROLES = [
 export type ReportType = (typeof REPORT_TYPES)[number]['value'];
 
 export const REPORT_DETAILS_MAX = 2000;
+
+/**
+ * 対象の求人（IDまたはURL）が必要な申請か。電話窓口を置かないため、このフォームがサービス全般・
+ * 個人情報の開示等の問い合わせ窓口も兼ねる（inquiry は対象の求人なしで受け付ける）。
+ */
+export function reportNeedsTarget(type: ReportType | '' | undefined): boolean {
+  return type !== 'inquiry';
+}
 
 /**
  * 訂正・削除申請の入力。本人確認書類は求めない。連絡先は返信を希望する場合だけ。
@@ -47,7 +56,7 @@ export const reportInputSchema = z
     if (value.targetUrl && !isSafeExternalUrl(value.targetUrl)) {
       ctx.addIssue({ code: 'custom', path: ['targetUrl'], message: 'http:// または https:// で始まるURLを入力してください' });
     }
-    if (!value.jobId && !value.targetUrl) {
+    if (reportNeedsTarget(value.type) && !value.jobId && !value.targetUrl) {
       ctx.addIssue({ code: 'custom', path: ['targetUrl'], message: '対象の求人ページのURLを入力してください' });
     }
     if (value.wantsReply) {

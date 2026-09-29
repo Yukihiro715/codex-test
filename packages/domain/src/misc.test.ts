@@ -111,6 +111,12 @@ describe('訂正・削除申請の入力', () => {
     expect(reportInputSchema.safeParse({ ...base, wantsReply: true, email: 'user@example.com' }).success).toBe(true);
   });
 
+  it('求人についての申請は対象（IDかURL）が必要、サービスへの問い合わせは不要', () => {
+    expect(reportInputSchema.safeParse({ ...base, jobId: null }).success).toBe(false);
+    expect(reportInputSchema.safeParse({ ...base, jobId: null, type: 'inquiry' }).success).toBe(true);
+    expect(reportInputSchema.safeParse({ ...base, jobId: null, type: 'inquiry', targetUrl: 'javascript:alert(1)' }).success).toBe(false);
+  });
+
   it('危険なURL・長すぎる本文は拒否する', () => {
     expect(reportInputSchema.safeParse({ ...base, jobId: null, targetUrl: 'javascript:alert(1)' }).success).toBe(false);
     expect(reportInputSchema.safeParse({ ...base, details: 'あ'.repeat(2001) }).success).toBe(false);

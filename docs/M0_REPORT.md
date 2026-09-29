@@ -1,6 +1,6 @@
-# M0 完了報告（WORKLENS 開発仮称）
+# M0 完了報告（求人マップ／コード名 WORKLENS）
 
-作成日：2026-09-28　対象ブランチ：`claude/job-search-m0-implementation-sk1wtc`
+作成日：2026-09-28（2026-09-29 追記：§10）　対象ブランチ：`claude/job-search-m0-implementation-sk1wtc`
 
 M0（架空データで動く主要画面の完成）を実装しました。実求人の取得・公開、本番課金、デプロイ、クラウド契約は行っていません。表示している求人・企業・金額はすべて架空です。
 
@@ -14,8 +14,8 @@ M0（架空データで動く主要画面の完成）を実装しました。実
 | S04 | 求人詳細（facts_link／full_authorized、給与内訳、他の掲載元、PCのstickyサマリー、スマホの固定CTA、掲載終了・非公開） | `/jobs/[id]` | 実装 |
 | S05 | 比較（最大3件、違いだけ表示、対象外、列ごとの削除・保存・元ページ） | `/compare?ids=` | 実装 |
 | S06 | 保存（localStorageにIDのみ、保存順・情報確認順、掲載終了・非公開の最小表示） | `/saved` | 実装 |
-| S07 | 訂正・削除の申請（受付番号、CSRF・レート制限・スパム対策） | `/report?jobId=` | 実装（申請内容は保存・送信しない） |
-| S08 | 運営者・収集方針・プライバシー・利用規約（草案） | `/about` `/sources` `/privacy` `/terms` | 草案 |
+| S07 | 訂正・削除の申請・お問い合わせ（受付番号、CSRF・レート制限・スパム対策。サービスへの問い合わせは対象の求人なしで送信可） | `/report?jobId=` | 実装（申請内容は保存・送信しない） |
+| S08 | 運営会社・収集方針・情報の取扱い・利用規約 | `/about` `/sources` `/privacy` `/terms` | 運営会社は確定情報。ほかは草案（法務確認前） |
 | A01/A02 | ソース一覧・詳細（公開停止／再開・収集ON/OFF・表示方式・審査条件・操作履歴） | `/admin/sources` `/admin/sources/[id]` | デモ（このブラウザのCookieに保存） |
 | B01 | 採用ご担当者へ（訂正・停止の案内、広告は準備中） | `/employers` | 非課金の案内のみ |
 | API | `GET /api/jobs` `GET /api/jobs/:id` `GET /api/jobs/lookup` `GET /api/compare` `POST /api/reports` `GET /out/:listingId` 管理API | — | 実装（fixture） |
@@ -52,12 +52,12 @@ npm run check                           # lint → typecheck → unit → build 
 |---|---|
 | `npm run lint` | 3ワークスペースともエラー・警告なし |
 | `npm run typecheck` | エラーなし（`next typegen` → `tsc --noEmit`） |
-| `npm run test` | 103件成功（domain 68・data 18・web 17） |
+| `npm run test` | 120件成功（domain 82・data 21・web 17） |
 | `npm run build` | 成功（Next.js 16.3.6 / Turbopack） |
-| `npm run test:e2e` | 85件成功（PC 1440×900・スマホ 375×812 のChromium。axe-coreによるWCAG A/AA自動検査9画面×2を含む） |
+| `npm run test:e2e` | 104件成功（PC 1440×900・スマホ 375×812 のChromium。axe-coreによるWCAG A/AA自動検査11画面×2を含む） |
 | REL01 手動確認 | `APP_ENV=production DATA_MODE=demo next start` → 起動前検査で終了（exit 1）。`ENABLE_BILLING=true` も終了（exit 1） |
 
-e2e は最終変更の前に3回連続で全件成功し、最終の `npm run check` でも全件成功しています。
+e2e は M0 の最終変更の前に3回連続で全件成功しました。2026-09-29 の追記後も `npm run check`（lint → typecheck → unit → build → e2e）が全件成功しています。
 
 ## 5. 画面の検証サイズ
 
@@ -94,13 +94,27 @@ e2e は最終変更の前に3回連続で全件成功し、最終の `npm run ch
 - 仕様ではWebフォントを同梱しない方針のため、日本語フォントは端末依存です。
 - GitHub Actions のCIは課金の可能性があるため追加していません（承認後に `npm run check` を実行するワークフローを追加できます）。
 
-## 9. 本番公開の前に必要な外部設定
+## 9. 本番公開の前に必要な外部設定（2026-09-29 時点）
 
-- 正式なブランド名・商標・ドメイン、運営法人名・所在地・電話番号・問い合わせ窓口（フッター・運営者情報は現在「未設定」表示）。
-- 利用規約・プライバシー・収集方針の確定、募集情報等提供事業の届出要否の確認。
-- ホスティング・DB・検索エンジン・キュー・バックアップ・エラー通知の契約と設定、`ADMIN_SESSION_SECRET` と正式な管理者認証。
-- 実ソースごとの審査記録（規約・robots・取得範囲・表示範囲）とoperatorによる有効化。
-- アクセス解析を導入する場合の送信項目・保存期間の決定。
-- 広告の契約・料金・請求（M3）。
+| 項目 | 状態 |
+|---|---|
+| ブランド名・ドメイン | 「求人マップ」・kyujinmap.jp に決定し画面に反映。商標（J-PlatPat）とドメインの取得は未確認 |
+| 運営会社・所在地・問い合わせ窓口 | 株式会社プロセント（Prosent,Inc.）／〒104-0054 東京都中央区勝どき1-3-1-43F を表示。電話番号は載せない。窓口は申請・お問い合わせフォーム。英文社名の表記揺れ（Prosent,Inc.／Prosent.Inc／株式会社Prosent）の確認が必要 |
+| 利用規約・情報の取扱い・収集方針 | 草案を作成（法務確認前）。施行日を `SITE.legal` に設定すると草案表示が外れる。保存期間・委託先と保存国は本番の構成に合わせて確定 |
+| 募集情報等提供事業の届出 | 出願中。受理番号を `SITE.notification.number` に設定すると運営会社のページに表示 |
+| ホスティング・DB・検索・キュー・バックアップ・エラー通知 | 推奨構成を設計（docs/07）。契約・設定は未実施 |
+| 実ソースの審査記録 | 形式・検査・3件の下書き（いずれも保留）を作成（docs/08、config/source_reviews）。ハローワークは電話番号の方針の判断待ち |
+| `ADMIN_SESSION_SECRET` と正式な管理者認証 | M1 |
+| アクセス解析 | 導入する場合は送信項目・保存期間を決め、/privacy に記載してから |
+| 広告の契約・料金・請求 | M3（料金・違約金・解除方法の書面等での事前明示が必要） |
 
 詳細な判断は `docs/DECISIONS_LOG.md` に記録しています。
+
+## 10. 2026-09-29 の追記（運営情報・規約・インフラ・ソース審査）
+
+- 画面：サイト名「求人マップ」とデモ表示、運営会社・所在地（電話番号なし）、運営会社のプライバシーポリシーへのリンク、canonical（`SITE_URL`、既定 https://kyujinmap.jp）、本番の robots.txt への sitemap の記載、ハローワーク経由の求人を含むページの「このページの運営事業者」。
+- ページ：利用規約（全17条・草案）、求人マップにおける情報の取扱い（利用目的・保存期間・Cookie・外部送信・委託）、収集方針に収集・更新の頻度・表示順の主な要素・収集用 User-Agent（KyujinMapBot）・苦情の窓口を追加。
+- 申請フォーム：「サービスについてのお問い合わせ（個人情報の取扱い・広告掲載を含む）」を追加。対象の求人なしで送信できる。
+- ソース審査：`sourceReviewSchema`・`reviewPolicyViolations`（packages/domain）、審査記録 `config/source_reviews/`（ハローワーク・エンゲージ・ATS の下書きと記入例）、ソース設定が審査の範囲内であることの単体テスト（packages/data）。
+- インフラ：docs/07（Vercel 東京＋Supabase 東京＋Meilisearch Cloud JPN＋Upstash 固定プラン＋Fly.io 東京の worker＋Sentry＋S3 東京、月 $110〜250 の概算）。Node.js の指定を `22.x` に変更。
+- 判断待ち：ハローワーク求人の転載には電話番号の掲示が必要（サイトポリシー・指針 第4の5）。電話番号を載せない方針のままなら扱わない。

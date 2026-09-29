@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { InfoPage } from '@/components/layout/info-page';
 
-export const metadata: Metadata = { title: '採用ご担当者の方へ' };
+export const metadata: Metadata = { title: '採用ご担当者の方へ', alternates: { canonical: '/employers' } };
 
 export default function EmployersPage() {
   return (
@@ -19,6 +19,9 @@ export default function EmployersPage() {
           <li>現在、有料の広告掲載は受け付けていません（準備中）。</li>
           <li>開始する場合は、掲載権限の確認・契約内容・クリック単価・予算上限・停止方法・無効クリックの扱いを、契約前にご説明します。</li>
           <li>一般の求人掲載や、元ページへの無料のご案内に費用はかかりません。契約のない企業に請求することはありません。</li>
+          <li>
+            広告掲載についてのご相談は、<Link href="/report">お問い合わせフォーム</Link>で「サービスについてのお問い合わせ」を選んでお送りください。
+          </li>
         </ul>
       </section>
     </InfoPage>

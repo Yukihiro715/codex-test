@@ -1,0 +1,82 @@
+{
+  "schemaVersion": 1,
+  "id": "SR-2026-0002",
+  "sourceId": "engage_review",
+  "sourceVersion": 1,
+  "title": "エンゲージ（en-gage.net）の公開求人",
+  "lane": "DISPUTED_SCOPE",
+  "scope": {
+    "hosts": ["en-gage.net"],
+    "paths": [],
+    "employer": null,
+    "access": "html_page",
+    "discovery": "未定（推奨は、契約にもとづく公式の連携・フィードがない限り取得しないこと）"
+  },
+  "terms": {
+    "url": "https://en-gage.net/company/privacy/",
+    "checkedAt": "2026-09-29T00:45:00Z",
+    "contentSha256": null,
+    "appliesToService": "unclear",
+    "automatedAccess": "prohibited",
+    "reuse": "prohibited",
+    "conditions": [],
+    "notes": "企業用利用規約（2026年4月1日制定）。第6条3（目的外利用の禁止）、第9条4・5（同社コンテンツの複製・公開・転載等には書面の承諾が必要）、第11条1（本サービスで提供する情報とその集合体の知的財産権は同社に帰属）、第11条2（第三者が運営する求人広告サイトへの自動掲載も掲載目的に含む）、第12条(8)（プログラム等による自動アクセスの禁止）。対象は契約企業で、未登録の第三者への適用を定めた条文はない。求職者向けの規約（user/terms）にクローリングの明文はなく、会員でない閲覧者向けのサイト利用規約は見つからない。"
+  },
+  "robots": {
+    "url": "https://en-gage.net/robots.txt",
+    "fetchedAt": "2026-09-29T00:45:00Z",
+    "httpStatus": 200,
+    "userAgentToken": "KyujinMapBot",
+    "matchedGroup": null,
+    "result": "allow",
+    "matchedRules": [],
+    "contentSha256": null
+  },
+  "basis": "",
+  "issues": [
+    {
+      "id": "EN-1",
+      "summary": "企業用規約で、自動アクセスの禁止と、提供情報（集合体を含む）の知的財産権・第三者サイトへの掲載の管理を定めている。未登録の第三者への適用は不明だが、契約なしの取得・表示は争いになる可能性が高い。",
+      "severity": "blocker",
+      "status": "open",
+      "resolution": null
+    },
+    {
+      "id": "EN-2",
+      "summary": "運営会社はカカクコムグループ（求人ボックスの運営）とエングループの合弁で、求人ボックス・スタンバイ・Googleしごと検索などへの公式の自動掲載がある。新規の求人検索サービス向けの公開窓口は見つからない（ヘルプはボット対策で読めず、回避していない）。",
+      "severity": "major",
+      "status": "open",
+      "resolution": null
+    },
+    {
+      "id": "EN-3",
+      "summary": "robots.txt には * のグループがなく、自社UA向けのルールもないため、RFC 9309 上は制限なし。ただし主要な検索・AIクローラーには /search/ などを禁止し、ClaudeBot は全面禁止している。",
+      "severity": "minor",
+      "status": "accepted",
+      "resolution": "robots の結果を利用の根拠にしない（robots の許可は再掲載の許諾ではない）。"
+    }
+  ],
+  "fields": { "acquire": [], "display": [] },
+  "storage": { "mode": "facts_only", "rawRetentionHours": 0 },
+  "displayMode": "none",
+  "image": { "allowed": false, "basis": null },
+  "outbound": { "hosts": ["en-gage.net"], "applicationRoute": "jobboard" },
+  "seo": { "indexAllowed": false, "jobPostingAllowed": false },
+  "promotion": { "allowed": false, "basis": null },
+  "crawl": { "maxRequestsPerDay": 100, "maxConcurrency": 1, "minIntervalMs": 10000 },
+  "freshness": { "recheckHours": 24, "staleHideAfterHours": 168 },
+  "owner": "運営責任者（未指名）",
+  "reviewers": [],
+  "legal": { "required": true, "status": "not_requested", "summary": null },
+  "proposal": "契約（公式の連携・フィードの提供）なしでは取得しない（rejected を推奨）。サービスの利用実績ができた段階で、株式会社エンゲージに連携を打診する。",
+  "decision": "pending",
+  "decidedAt": null,
+  "expiresAt": null,
+  "evidence": [
+    { "label": "engage 企業用 利用規約（2026年4月1日制定）", "url": "https://en-gage.net/company/privacy/", "capturedAt": "2026-09-29T00:45:00Z", "sha256": null },
+    { "label": "エンゲージ 利用規約（求職者向け、最終改定 2026年4月1日）", "url": "https://en-gage.net/user/terms/", "capturedAt": "2026-09-29T00:45:00Z", "sha256": null },
+    { "label": "robots.txt（HTTP 200、Last-Modified 2026-09-16）", "url": "https://en-gage.net/robots.txt", "capturedAt": "2026-09-29T00:45:00Z", "sha256": null },
+    { "label": "料金ページ（求人ボックス・スタンバイ等への自動掲載）", "url": "https://en-gage.net/expense/", "capturedAt": "2026-09-29T00:45:00Z", "sha256": null }
+  ],
+  "notes": "2026-09-29 の調査にもとづく下書き（起案：Claude Code）。取得時刻は概算で、本文のハッシュは未取得。"
+}

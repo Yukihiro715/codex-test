@@ -2,6 +2,8 @@ import type { Metadata } from 'next';
 import { SearchView } from '@/components/search/search-view';
 import { runSearch } from '@/server/search';
 import { getRepository } from '@/server/repository';
+import { isDemoMode } from '@/server/env';
+import { titleSuffix } from '@/lib/site';
 
 export const metadata: Metadata = {
   title: '求人を探す',
@@ -12,5 +14,5 @@ export const metadata: Metadata = {
 export default async function JobsPage({ searchParams }: PageProps<'/jobs'>) {
   const params = await searchParams;
   const initial = await runSearch(params);
-  return <SearchView initial={initial} sourceIds={[...getRepository().sourceIds()]} />;
+  return <SearchView initial={initial} sourceIds={[...getRepository().sourceIds()]} titleSuffix={titleSuffix(isDemoMode())} />;
 }

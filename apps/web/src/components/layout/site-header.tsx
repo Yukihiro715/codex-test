@@ -6,6 +6,7 @@ import { usePathname } from 'next/navigation';
 import { Bookmark, Menu } from 'lucide-react';
 import { Dialog, DialogContent, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { useSavedIds } from '@/lib/local-lists';
+import { SITE } from '@/lib/site';
 import { cn } from '@/lib/utils';
 
 const primaryNav = [
@@ -23,15 +24,15 @@ function SavedCount() {
   );
 }
 
-export function SiteHeader() {
+export function SiteHeader({ demo }: { demo: boolean }) {
   const pathname = usePathname() ?? '/';
   const isAdmin = pathname.startsWith('/admin');
   return (
     <header className="border-b border-line bg-surface">
       <div className="page-container flex h-16 items-center gap-4 lg:h-[72px] lg:gap-8">
-        <Link href="/" className="flex min-h-11 shrink-0 items-baseline gap-2 text-ink no-underline" aria-label="WORKLENS（開発仮称）ホーム">
-          <span className="text-xl font-black tracking-[0.06em] lg:text-[23px]">WORKLENS</span>
-          <span className="hidden text-[11px] font-bold text-muted sm:inline">開発仮称</span>
+        <Link href="/" className="flex min-h-11 shrink-0 items-center gap-2 text-ink no-underline" aria-label={`${SITE.name}${demo ? '（デモ）' : ''} ホーム`}>
+          <span className="text-xl font-black tracking-[0.04em] lg:text-2xl">{SITE.name}</span>
+          {demo ? <span className="rounded bg-ink px-1.5 py-0.5 text-[11px] font-bold text-white">デモ</span> : null}
         </Link>
 
         <nav aria-label="主なメニュー" className="hidden flex-1 justify-center lg:flex">

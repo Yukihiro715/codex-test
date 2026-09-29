@@ -1,0 +1,68 @@
+{
+  "schemaVersion": 1,
+  "id": "SR-2026-9001",
+  "sourceId": "employer_example",
+  "sourceVersion": 1,
+  "title": "（記入例・架空）株式会社サンプル物流 採用サイト",
+  "lane": "PUBLIC_FACT_INDEX",
+  "scope": {
+    "hosts": ["careers.example.com"],
+    "paths": ["/jobs"],
+    "employer": "株式会社サンプル物流（架空）",
+    "access": "html_page",
+    "discovery": "採用サイトの求人一覧（/jobs）からリンクされた求人詳細だけを取得する。外部のATSへのリンクは別のソースとして審査する。"
+  },
+  "terms": {
+    "url": null,
+    "checkedAt": "2026-09-29T02:00:00Z",
+    "contentSha256": null,
+    "appliesToService": "no",
+    "automatedAccess": "silent",
+    "reuse": "silent",
+    "conditions": [],
+    "notes": "採用サイトとコーポレートサイトに利用規約・転載条件の記載がないことを確認した（記入例）。"
+  },
+  "robots": {
+    "url": "https://careers.example.com/robots.txt",
+    "fetchedAt": "2026-09-29T02:00:00Z",
+    "httpStatus": 200,
+    "userAgentToken": "KyujinMapBot",
+    "matchedGroup": "*",
+    "result": "allow",
+    "matchedRules": ["User-agent: *", "Disallow: /admin/"],
+    "contentSha256": "0000000000000000000000000000000000000000000000000000000000000000"
+  },
+  "basis": "一般公開の採用ページで、明確な取得禁止やアクセス障壁がない。事実条件と元ページへのリンク（facts_link）に限り、本文・写真・ロゴ・担当者の連絡先は取得・表示しない。企業から停止の依頼があれば即時に止める。",
+  "issues": [
+    {
+      "id": "EX-1",
+      "summary": "求人詳細に採用担当者の個人名と直通の電話番号が載っている。",
+      "severity": "major",
+      "status": "resolved",
+      "resolution": "抽出の対象から除外し、単体テストで表示されないことを確認した。"
+    }
+  ],
+  "fields": {
+    "acquire": ["title", "employerName", "locations", "salary", "employmentTypes", "facts", "sourceName", "sourceUrl", "lastFetchedAt"],
+    "display": ["title", "employerName", "locations", "salary", "employmentTypes", "facts", "sourceName", "sourceUrl", "lastFetchedAt"]
+  },
+  "storage": { "mode": "facts_only", "rawRetentionHours": 0 },
+  "displayMode": "facts_link",
+  "image": { "allowed": false, "basis": null },
+  "outbound": { "hosts": ["careers.example.com"], "applicationRoute": "employer" },
+  "seo": { "indexAllowed": false, "jobPostingAllowed": false },
+  "promotion": { "allowed": false, "basis": null },
+  "crawl": { "maxRequestsPerDay": 100, "maxConcurrency": 1, "minIntervalMs": 10000 },
+  "freshness": { "recheckHours": 24, "staleHideAfterHours": 168 },
+  "owner": "運営責任者A（記入例）",
+  "reviewers": ["データ担当B（記入例）"],
+  "legal": { "required": false, "status": "not_requested", "summary": null },
+  "proposal": "facts_link で承認する。",
+  "decision": "approved",
+  "decidedAt": "2026-09-29T03:00:00Z",
+  "expiresAt": "2027-03-28",
+  "evidence": [
+    { "label": "robots.txt の保存（記入例）", "url": "https://careers.example.com/robots.txt", "capturedAt": "2026-09-29T02:00:00Z", "sha256": "0000000000000000000000000000000000000000000000000000000000000000" }
+  ],
+  "notes": "記入例（架空）。ファイル名が _ で始まる記録は、ソース設定との照合の対象外（スキーマの検査だけを行う）。"
+}

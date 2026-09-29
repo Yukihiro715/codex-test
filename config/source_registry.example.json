@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
   "checkedAt": "2026-09-29",
-  "note": "設定例。ライブ取得可能な完成レジストリではない。未確認の実ソースを自動有効化しない。",
+  "note": "設定例。ライブ取得可能な完成レジストリではない。未確認の実ソースを自動有効化しない。 審査記録は config/source_reviews/ に置き、設定は常に審査記録の範囲内にする（packages/data の単体テストで検査）。",
   "sources": [
     {
       "id": "hellowork_public",
       "name": "ハローワーク一般公開求人",
-      "version": 1,
+      "version": 2,
       "lane": "OPEN_REUSE",
       "hosts": [
         "www.hellowork.mhlw.go.jp"
@@ -16,7 +16,7 @@
       "termsCheckedAt": "2026-09-29",
       "robotsStatus": "unverified",
       "reviewStatus": "unreviewed",
-      "reviewId": null,
+      "reviewId": "SR-2026-0001",
       "reviewExpiresAt": null,
       "fetchEnabled": false,
       "publicEnabled": false,
@@ -42,8 +42,8 @@
       "minRequestIntervalMs": 10000,
       "maxResponseBytes": 5242880,
       "rawRetentionHours": 0,
-      "staleHideAfterHours": 168,
-      "activationNote": "転載条件のみ確認。実パス・robots・継続更新を確認してから有効化。"
+      "staleHideAfterHours": 48,
+      "activationNote": "審査記録 SR-2026-0001（保留）。転載には運営者の電話番号の掲示が必要（HW-1、未解決）。取消求人を速やかに外すため、確認できない求人は48時間で検索から外す。"
     },
     {
       "id": "employer_public_template",
@@ -98,7 +98,7 @@
       "termsCheckedAt": "2026-09-29",
       "robotsStatus": "unverified",
       "reviewStatus": "unreviewed",
-      "reviewId": null,
+      "reviewId": "SR-2026-0002",
       "reviewExpiresAt": null,
       "fetchEnabled": false,
       "publicEnabled": false,
@@ -125,7 +125,7 @@
       "maxResponseBytes": 5242880,
       "rawRetentionHours": 0,
       "staleHideAfterHours": 168,
-      "activationNote": "企業用規約を確認。公開求人パスの適用とrobotsは未確認。"
+      "activationNote": "審査記録 SR-2026-0002（保留）。企業用規約に自動アクセス禁止・情報の集合体の権利主張がある（EN-1、未解決）。推奨：契約なしでは取得しない。"
     },
     {
       "id": "ats_review_template",
@@ -138,7 +138,7 @@
       "termsCheckedAt": null,
       "robotsStatus": "unverified",
       "reviewStatus": "unreviewed",
-      "reviewId": null,
+      "reviewId": "SR-2026-0003",
       "reviewExpiresAt": null,
       "fetchEnabled": false,
       "publicEnabled": false,
@@ -165,7 +165,7 @@
       "maxResponseBytes": 5242880,
       "rawRetentionHours": 0,
       "staleHideAfterHours": 168,
-      "activationNote": "HRMOS/HERP/Airワーク/Talentio等の実パスと規約を調べて個別登録。名称から自動ONしない。"
+      "activationNote": "審査記録 SR-2026-0003（保留・調査メモ）。ATSごとの規約が未確認（ATS-1）。HRMOS/HERP/Talentio/Airワーク等は、ATSごと・企業ごとに個別の審査記録を作って登録する。名称から自動ONしない。"
     }
   ]
 }

@@ -25,6 +25,7 @@ import type { SearchResponse } from '@worklens/data';
 import { JobCard } from '@/components/jobs/job-card';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/components/ui/toast';
+import { operatorFullName } from '@/lib/site';
 import { track } from '@/lib/track';
 import { cn } from '@/lib/utils';
 import { FilterPanel, type FilterChangeMeta } from './filter-panel';
@@ -50,7 +51,7 @@ function headingFor(query: SearchQuery): string {
  * 検索一覧（S02）。URLが唯一の状態で、条件変更は history.pushState で履歴に積む。
  * 戻る/進む・再読込で同じ条件とページを復元し、エラー時は既存の結果を残して再試行できる。
  */
-export function SearchView({ initial, sourceIds }: { initial: SearchResponse; sourceIds: string[] }) {
+export function SearchView({ initial, sourceIds, titleSuffix }: { initial: SearchResponse; sourceIds: string[]; titleSuffix: string }) {
   const searchParams = useSearchParams();
   const { toast } = useToast();
   const knownSources = useMemo(() => new Set(sourceIds), [sourceIds]);
@@ -129,8 +130,8 @@ export function SearchView({ initial, sourceIds }: { initial: SearchResponse; so
   const heading = headingFor(query);
 
   useEffect(() => {
-    document.title = `${heading}｜WORKLENS（開発仮称）`;
-  }, [heading]);
+    document.title = `${heading}${titleSuffix}`;
+  }, [heading, titleSuffix]);
 
   const navigate = useCallback((next: SearchQuery, options: { replace?: boolean } = {}) => {
     const href = hrefFor(serializeQuery(next));
@@ -300,6 +301,12 @@ export function SearchView({ initial, sourceIds }: { initial: SearchResponse; so
                 条件をすべてクリア
               </button>
             </div>
+          ) : null}
+
+          {[...result.items, ...result.promotions.map((p) => p.job)].some((j) => j.applicationRoute === 'hellowork') ? (
+            <p className="mt-3 rounded-lg bg-surface px-3 py-2 text-sm font-bold" data-testid="page-operator">
+              このページの運営事業者：{operatorFullName()}（ハローワークの求人情報を含みます）
+            </p>
           ) : null}
 
           {result.unknownNotes.length > 0 ? (

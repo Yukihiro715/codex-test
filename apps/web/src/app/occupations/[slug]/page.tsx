@@ -64,6 +64,7 @@ export async function generateMetadata({ params }: PageProps<'/occupations/[slug
   return {
     title: `${occupation.label}の求人`,
     description: `${occupation.label}の仕事を、${occupation.description.replace('で比較', '')}などの条件で比べて探せます。`,
+    alternates: { canonical: `/occupations/${slug}` },
     // 空のハブ・デモはnoindex（SEO04）
     robots: indexable ? { index: true, follow: true } : { index: false, follow: true },
   };

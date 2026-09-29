@@ -2,7 +2,7 @@ import AxeBuilder from '@axe-core/playwright';
 import { expect, test } from '@playwright/test';
 import { loginAdmin, open } from './helpers';
 
-const PAGES = ['/', '/jobs?occupation=nurse&onCall=no', '/jobs/demo-driver-1', '/jobs/demo-driver-2', '/occupations/driver', '/compare?ids=demo-driver-1,demo-nurse-1,demo-engineer-4', '/saved', '/report?jobId=demo-driver-1'];
+const PAGES = ['/', '/jobs?occupation=nurse&onCall=no', '/jobs/demo-driver-1', '/jobs/demo-driver-2', '/occupations/driver', '/compare?ids=demo-driver-1,demo-nurse-1,demo-engineer-4', '/saved', '/report?jobId=demo-driver-1', '/terms', '/privacy'];
 
 /** 自動検査（axe-core・WCAG 2.x A/AA）。重大・深刻な違反がないこと */
 for (const path of PAGES) {

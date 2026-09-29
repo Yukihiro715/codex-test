@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowRight, ShieldCheck } from 'lucide-react';
 import { HeroSearchForm } from '@/components/search/hero-search-form';
@@ -5,6 +6,8 @@ import { JobCard } from '@/components/jobs/job-card';
 import { OccupationIcon } from '@/components/jobs/occupation-icon';
 import { getRepository, getRequestContext } from '@/server/repository';
 import { isDemoMode } from '@/server/env';
+
+export const metadata: Metadata = { alternates: { canonical: '/' } };
 
 export default async function HomePage() {
   const repo = getRepository();

@@ -1,5 +1,6 @@
 import 'server-only';
 import { z } from 'zod';
+import { SITE } from '@/lib/site';
 import { resolveAdminSecret } from './admin-auth';
 
 const bool = (fallback: boolean) =>
@@ -21,6 +22,8 @@ const envSchema = z.object({
     .string()
     .default('2026-09-29T12:00:00Z')
     .refine((v) => !Number.isNaN(new Date(v).getTime()), 'DEMO_NOW はISO 8601の日時で指定してください'),
+  /** 公開URL（canonical・サイトマップ用）。ステージングでは別ドメインを設定する */
+  SITE_URL: z.url({ protocol: /^https?$/ }).optional(),
   ADMIN_DEMO_LOGIN: bool(true),
   ADMIN_SESSION_SECRET: z.string().min(16).optional(),
   REPORT_RATE_LIMIT: z.coerce.number().int().positive().default(5),
@@ -59,6 +62,11 @@ export function getNow(): Date {
 export function getAdminSecret(): string | null {
   const config = getConfig();
   return resolveAdminSecret({ ADMIN_SESSION_SECRET: config.ADMIN_SESSION_SECRET, APP_ENV: config.APP_ENV });
+}
+
+/** サイトの公開URL（末尾スラッシュなし）。未設定なら本番ドメイン */
+export function getSiteUrl(): string {
+  return (getConfig().SITE_URL ?? SITE.url).replace(/\/+$/, '');
 }
 
 /** デモ管理者ログインを使えるか（本番環境では常に不可） */

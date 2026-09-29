@@ -1,0 +1,116 @@
+{
+  "schemaVersion": 1,
+  "id": "SR-2026-0001",
+  "sourceId": "hellowork_public",
+  "sourceVersion": 2,
+  "title": "ハローワークインターネットサービスの公開求人（公開サイトからの転載）",
+  "lane": "OPEN_REUSE",
+  "scope": {
+    "hosts": ["www.hellowork.mhlw.go.jp"],
+    "paths": [],
+    "employer": null,
+    "access": "html_page",
+    "discovery": "公開の求人検索から、対象の都道府県・職種に絞った求人詳細のURLだけを取得する（検索結果を無制限に巡回しない）。公式のデータ提供（CSV/API）は職業紹介事業者等が対象で、不特定多数へのWeb公開が禁止されているため使わない。"
+  },
+  "terms": {
+    "url": "https://www.hellowork.mhlw.go.jp/info/sitepolicy.html",
+    "checkedAt": "2026-09-29T00:40:00Z",
+    "contentSha256": null,
+    "appliesToService": "yes",
+    "automatedAccess": "silent",
+    "reuse": "conditional",
+    "conditions": [
+      "出所（ハローワークインターネットサービス）を明記する",
+      "転載先のサイト内に、運営する事業者名・所在地・電話番号を明示する（職業安定法の指針 第4の5も同旨）",
+      "求人を検索・表示するページで、運営事業者名を分かりやすく明記する",
+      "ハローワークが運営していると誤解される名称を使わない",
+      "画像・地図・ハローワーク利用者に限定公開の情報は転載しない",
+      "正確に記載し、随時更新して常に最新の内容にする。取り消された求人は速やかに掲載をやめる",
+      "職業安定局・労働局・ハローワークから要請があれば速やかに修正・削除する",
+      "掲載情報を、サイトの目的と関係のない営業等の対象にしない"
+    ],
+    "notes": "サイトポリシー（最終改定 2025年1月6日）。転載に事前の許可・届出の定めはなく、条件を守れば転載できる形。自動アクセス・クローリングの明文規定はない（全文を確認）。info/terms.html はマイページ用の規約。条件を守らない事業者は以後の転載を禁止され、古い求人の掲載はサイト名の公表や、職業安定法5条の4違反として行政指導・処分の対象になり得る。"
+  },
+  "robots": {
+    "url": "https://www.hellowork.mhlw.go.jp/robots.txt",
+    "fetchedAt": "2026-09-29T00:39:56Z",
+    "httpStatus": 404,
+    "userAgentToken": "KyujinMapBot",
+    "matchedGroup": null,
+    "result": "allow",
+    "matchedRules": [],
+    "contentSha256": null
+  },
+  "basis": "サイトポリシーが公開求人の転載を条件付きで認めている。条件（出所・運営者の表示・随時更新・取消時の削除・画像等の除外）を満たせる範囲で、事実条件と元ページへのリンク（facts_link）に限って表示する。",
+  "issues": [
+    {
+      "id": "HW-1",
+      "summary": "転載には、サイト内に運営者の電話番号を掲示する必要がある（サイトポリシー・指針 第4の5）。運営者の方針（電話番号を載せない）と両立しない。",
+      "severity": "blocker",
+      "status": "open",
+      "resolution": null
+    },
+    {
+      "id": "HW-2",
+      "summary": "robots.txt は調査用のクライアントで取得して404（RFC 9309 §2.3.1.3 により制限なし）。承認前に本番のUA（KyujinMapBot）で再取得して記録する。",
+      "severity": "major",
+      "status": "open",
+      "resolution": null
+    },
+    {
+      "id": "HW-3",
+      "summary": "対象パス（検索結果・求人詳細のURL形式）を確定し、画像・地図・限定公開の情報を取得しないことを実装とテストで確認する。",
+      "severity": "major",
+      "status": "open",
+      "resolution": null
+    },
+    {
+      "id": "HW-4",
+      "summary": "取消・変更の反映（確認できない求人は48時間で検索から外す）と、行政からの修正・削除の要請に即時対応する手順を用意する。",
+      "severity": "major",
+      "status": "open",
+      "resolution": null
+    },
+    {
+      "id": "HW-5",
+      "summary": "公式のデータ提供（CSV/API）は職業紹介事業者等が対象で、不特定多数へのWeb公開は規約違反になる（よくある質問 A8）。",
+      "severity": "minor",
+      "status": "accepted",
+      "resolution": "公式のデータ提供は使わず、公開サイトからの転載に限定する。"
+    },
+    {
+      "id": "HW-6",
+      "summary": "開始の前に、ハローワークインターネットサービスの担当部署へ転載の方法を確認しておくことが望ましい。",
+      "severity": "minor",
+      "status": "open",
+      "resolution": null
+    }
+  ],
+  "fields": {
+    "acquire": ["title", "employerName", "locations", "salary", "employmentTypes", "facts", "sourceName", "sourceUrl", "lastFetchedAt", "validThrough"],
+    "display": ["title", "employerName", "locations", "salary", "employmentTypes", "facts", "sourceName", "sourceUrl", "lastFetchedAt"]
+  },
+  "storage": { "mode": "facts_only", "rawRetentionHours": 0 },
+  "displayMode": "facts_link",
+  "image": { "allowed": false, "basis": null },
+  "outbound": { "hosts": ["www.hellowork.mhlw.go.jp"], "applicationRoute": "hellowork" },
+  "seo": { "indexAllowed": false, "jobPostingAllowed": false },
+  "promotion": { "allowed": false, "basis": null },
+  "crawl": { "maxRequestsPerDay": 100, "maxConcurrency": 1, "minIntervalMs": 10000 },
+  "freshness": { "recheckHours": 24, "staleHideAfterHours": 48 },
+  "owner": "運営責任者（未指名）",
+  "reviewers": [],
+  "legal": { "required": true, "status": "not_requested", "summary": null },
+  "proposal": "電話番号を掲示できる場合に限り、facts_link・index不可・広告不可で、1都道府県×1職種の小さな範囲から承認する。電話番号を掲示しない方針を続けるなら、ハローワークの求人は扱わない（rejected）。",
+  "decision": "pending",
+  "decidedAt": null,
+  "expiresAt": null,
+  "evidence": [
+    { "label": "サイトポリシー（最終改定 2025年1月6日）", "url": "https://www.hellowork.mhlw.go.jp/info/sitepolicy.html", "capturedAt": "2026-09-29T00:40:00Z", "sha256": null },
+    { "label": "robots.txt（HTTP 404）", "url": "https://www.hellowork.mhlw.go.jp/robots.txt", "capturedAt": "2026-09-29T00:39:56Z", "sha256": null },
+    { "label": "求人・求職情報提供サービス 民間向け利用規約（令和8年3月23日施行）", "url": "https://www.hellowork.mhlw.go.jp/doc/kiyaku_dantai_pri.pdf", "capturedAt": "2026-09-29T00:40:00Z", "sha256": null },
+    { "label": "よくある質問 A8（提供データの不特定多数への公開）", "url": "https://www.hellowork.mhlw.go.jp/help/question07.html#tk208", "capturedAt": "2026-09-29T00:40:00Z", "sha256": null },
+    { "label": "募集情報等提供事業 業務運営要領（指針 第4の5を収録）", "url": "https://www.mhlw.go.jp/content/11600000/001500491.pdf", "capturedAt": "2026-09-29T00:40:00Z", "sha256": null }
+  ],
+  "notes": "2026-09-29 の調査にもとづく下書き（起案：Claude Code）。取得時刻は概算で、本文のハッシュは未取得。承認の前に、証跡（画面・本文）を社内の保存先に残し、sha256 を記録する。"
+}
