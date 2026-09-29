@@ -16,6 +16,8 @@ const PAGES = [
   '/about',
   '/terms',
   '/privacy',
+  '/login',
+  '/login/help',
 ];
 
 for (const path of PAGES) {

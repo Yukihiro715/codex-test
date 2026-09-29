@@ -128,7 +128,7 @@ export default async function HomePage() {
 /** 画面説明用の架空イメージ（実績件数・口コミには置き換えない） */
 function CompareIllustration() {
   return (
-    <figure className="order-last rounded-[18px] border border-line bg-surface p-5 shadow-[0_14px_35px_rgba(20,45,69,0.04)] lg:rotate-[1.5deg] lg:p-6" aria-label="比較画面のイメージ（架空）">
+    <figure className="order-last rounded-[18px] border border-line bg-surface p-5 shadow-[0_14px_35px_rgba(20,45,69,0.04)] lg:p-6" aria-label="比較画面のイメージ（架空）">
       <p className="mb-3 text-sm font-bold">給与の、その先も。</p>
       <div className="grid grid-cols-2 gap-2.5 text-[13px]">
         {[

@@ -27,6 +27,7 @@ import { CompareToggle } from '@/components/jobs/compare-toggle';
 import { OutboundLink } from '@/components/jobs/outbound-link';
 import { PostedDate, StaleNotice } from '@/components/jobs/job-card';
 import { TrackView } from '@/components/jobs/track-view';
+import { RecordHistory } from '@/components/member/record-history';
 import { getJobForRequest } from '@/server/jobs';
 import { getConfig, isDemoMode } from '@/server/env';
 import { operatorFullName } from '@/lib/site';
@@ -63,6 +64,7 @@ export default async function JobDetailPage({ params }: PageProps<'/jobs/[id]'>)
     <div className="page-container pb-28 pt-4 lg:pb-10 lg:pt-6">
       {jsonLd ? <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(jsonLd) }} /> : null}
       <TrackView event="job_viewed" props={{ occupation: job.occupation, displayMode: job.displayMode, route: job.applicationRoute }} />
+      <RecordHistory jobId={job.id} />
       <nav aria-label="パンくずリスト" className="mb-4 text-xs text-muted">
         <ol className="flex flex-wrap items-center gap-1">
           <li>

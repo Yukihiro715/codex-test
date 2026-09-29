@@ -38,3 +38,11 @@ export async function loginAdmin(page: Page, next = '/admin/sources'): Promise<v
 export async function horizontalOverflow(page: Page): Promise<number> {
   return page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
 }
+
+/** 会員ログインのデモ（外部サービスに接続しない）。ログイン後はマイページ（または next）に移動する */
+export async function loginMember(page: Page, providerButton = 'Googleで続ける', next = '/mypage'): Promise<void> {
+  await open(page, `/login?next=${encodeURIComponent(next)}`);
+  await page.getByRole('button', { name: providerButton }).click();
+  await page.waitForURL((url) => `${url.pathname}${url.search}` === next);
+  await waitForClient(page);
+}

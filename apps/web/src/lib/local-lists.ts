@@ -18,7 +18,7 @@ export interface ListStore {
   isPersistent: () => boolean;
 }
 
-function createListStore(key: string, max: number): ListStore {
+export function createListStore(key: string, max: number): ListStore {
   let snapshot: readonly string[] | null = null;
   let memoryOnly = false;
   const listeners = new Set<() => void>();

@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test';
-import { horizontalOverflow, open, resultTotal } from './helpers';
+import { horizontalOverflow, open, resultTotal, waitForClient } from './helpers';
 
 test('UI11 絞り込みシートはキーボードで開閉でき、Escで閉じると適用せず元のボタンへfocusを戻す', async ({ page }) => {
   await open(page, '/jobs');
@@ -41,6 +41,19 @@ test('スマホのメニュー：開いてEscで閉じ、元のボタンへfocus
   await page.keyboard.press('Escape');
   await expect(page.getByRole('dialog')).toHaveCount(0);
   await expect(button).toBeFocused();
+});
+
+test('スマホのメニュー：ログインの入口と、ログイン後のマイページ', async ({ page }) => {
+  await open(page, '/');
+  await page.getByRole('button', { name: 'メニューを開く' }).click();
+  await page.getByRole('dialog', { name: 'メニュー' }).getByRole('link', { name: 'ログイン・会員登録' }).click();
+  await expect(page).toHaveURL('/login');
+  await waitForClient(page);
+  await page.getByRole('button', { name: 'Googleで続ける' }).click();
+  await expect(page).toHaveURL('/mypage');
+  await waitForClient(page);
+  await page.getByRole('button', { name: 'メニューを開く' }).click();
+  await expect(page.getByRole('dialog', { name: 'メニュー' }).getByRole('link', { name: 'マイページ' })).toBeVisible();
 });
 
 test('スマホの求人詳細：画面下に固定CTAを表示する', async ({ page }) => {

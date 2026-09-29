@@ -7,7 +7,8 @@ import { DemoBanner } from '@/components/layout/demo-banner';
 import { CompareTray } from '@/components/layout/compare-tray';
 import { HydrationMarker } from '@/components/layout/hydration-marker';
 import { SITE, titleSuffix } from '@/lib/site';
-import { getSiteUrl, isDemoMode } from '@/server/env';
+import { MemberProvider } from '@/components/member/member-provider';
+import { getSiteUrl, isDemoMode, isMemberLoginAvailable } from '@/server/env';
 
 export async function generateMetadata(): Promise<Metadata> {
   const demo = isDemoMode();
@@ -39,20 +40,22 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html lang="ja">
       <body className="min-h-dvh">
         <ToastProvider>
-          <a
-            href="#main"
-            className="sr-only focus:not-sr-only focus:fixed focus:left-3 focus:top-3 focus:z-[70] focus:rounded-lg focus:bg-surface focus:px-4 focus:py-3 focus:font-bold"
-          >
-            本文へスキップ
-          </a>
-          {demo ? <DemoBanner /> : null}
-          <SiteHeader demo={demo} />
-          <main id="main" tabIndex={-1} className="outline-none">
-            {children}
-          </main>
-          <SiteFooter />
-          <CompareTray />
-          <HydrationMarker />
+          <MemberProvider loginAvailable={isMemberLoginAvailable()}>
+            <a
+              href="#main"
+              className="sr-only focus:not-sr-only focus:fixed focus:left-3 focus:top-3 focus:z-[70] focus:rounded-lg focus:bg-surface focus:px-4 focus:py-3 focus:font-bold"
+            >
+              本文へスキップ
+            </a>
+            {demo ? <DemoBanner /> : null}
+            <SiteHeader demo={demo} />
+            <main id="main" tabIndex={-1} className="outline-none">
+              {children}
+            </main>
+            <SiteFooter />
+            <CompareTray />
+            <HydrationMarker />
+          </MemberProvider>
         </ToastProvider>
       </body>
     </html>

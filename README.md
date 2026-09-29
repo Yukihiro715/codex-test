@@ -49,6 +49,8 @@ npm run dev
 | 保存した求人 | http://localhost:3000/saved |
 | 訂正・削除の申請・お問い合わせ | http://localhost:3000/report |
 | 運営会社・利用規約・情報の取扱い・収集方針・採用ご担当者へ | `/about` `/terms` `/privacy` `/sources` `/employers` |
+| ログイン・会員登録（デモ） | http://localhost:3000/login （どのボタンでも架空の会員としてログイン） |
+| マイページ（デモ） | http://localhost:3000/mypage |
 | 管理画面（デモ）：ソース一覧・詳細 | http://localhost:3000/admin/sources （「デモ管理者としてログイン」を押す） |
 
 本番ビルドで確認する場合は `npm run build` のあと `npm run start`。環境変数は `apps/web/.env.example` を参照してください（既定値のままで起動できます）。

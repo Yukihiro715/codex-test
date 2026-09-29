@@ -58,4 +58,5 @@
 - e2e は `html[data-hydrated]` と `[data-client-ready]` を待ってから操作する（`apps/web/e2e/helpers.ts`）。
 - 仮定・判断は `docs/DECISIONS_LOG.md`、M0の結果と未実施項目は `docs/M0_REPORT.md`。
 - サイト名・運営会社・電話番号・届出番号・規約の施行日は `apps/web/src/lib/site.ts` が正本。利用規約・情報の取扱いは法務確認前の草案。
+- 会員機能（ログイン・マイページ）は M0 ではデモ（外部サービスに接続せず、会員情報はブラウザ内だけ。デモのログインは本番環境・実データでは無効）。本実装は M1（認証ライブラリ・DB・各社の登録）で、設計と法令対応は `docs/09_ACCOUNTS.md`。
 - 実ソースの審査記録は `config/source_reviews/`（運用は `docs/08_SOURCE_REVIEWS.md`）。ソース設定は常に審査記録の範囲内（`packages/data` の単体テストで検査）。インフラの推奨は `docs/07_INFRASTRUCTURE.md`。

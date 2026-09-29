@@ -3,7 +3,8 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Bookmark, Menu } from 'lucide-react';
+import { Bookmark, CircleUserRound, Menu } from 'lucide-react';
+import { useMember } from '@/components/member/member-provider';
 import { Dialog, DialogContent, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { useSavedIds } from '@/lib/local-lists';
 import { SITE } from '@/lib/site';
@@ -67,6 +68,7 @@ export function SiteHeader({ demo }: { demo: boolean }) {
             <span>保存</span>
             <SavedCount />
           </Link>
+          <MemberLink pathname={pathname} />
           <Link
             href={isAdmin ? '/admin/sources' : '/employers'}
             className="hidden min-h-11 items-center rounded-lg px-3 text-sm font-bold text-ink no-underline hover:bg-page lg:inline-flex"
@@ -80,8 +82,32 @@ export function SiteHeader({ demo }: { demo: boolean }) {
   );
 }
 
+/** ログイン中なら「マイページ」、そうでなければ「ログイン」（PCのヘッダー）。ログインの入口がない環境では出さない */
+function MemberLink({ pathname }: { pathname: string }) {
+  const { loginAvailable, member } = useMember();
+  if (!loginAvailable || pathname.startsWith('/admin')) return null;
+  const href = member ? '/mypage' : pathname === '/login' ? '/login' : `/login?next=${encodeURIComponent(pathname)}`;
+  const active = member ? pathname.startsWith('/mypage') : pathname.startsWith('/login');
+  return (
+    <Link
+      href={href}
+      aria-current={active ? 'page' : undefined}
+      data-testid="member-link"
+      className={cn(
+        'hidden min-h-11 items-center gap-1.5 rounded-lg px-2.5 text-sm font-bold no-underline hover:bg-page lg:inline-flex',
+        active ? 'text-primary' : 'text-ink',
+      )}
+    >
+      <CircleUserRound aria-hidden className="size-5" />
+      {member ? 'マイページ' : 'ログイン'}
+    </Link>
+  );
+}
+
 function MobileMenu({ pathname }: { pathname: string }) {
+  const { loginAvailable, member } = useMember();
   const links = [
+    ...(loginAvailable ? [member ? { href: '/mypage', label: 'マイページ' } : { href: '/login', label: 'ログイン・会員登録' }] : []),
     { href: '/jobs', label: '求人を探す' },
     { href: '/#occupations', label: '職種から探す' },
     { href: '/saved', label: '保存した求人' },
@@ -89,7 +115,7 @@ function MobileMenu({ pathname }: { pathname: string }) {
     { href: '/employers', label: '採用ご担当者へ' },
     { href: '/report', label: '掲載情報の訂正・削除' },
     { href: '/sources', label: '収集方針' },
-    { href: '/about', label: '運営者情報' },
+    { href: '/about', label: '運営会社' },
   ];
   const [open, setOpen] = useState(false);
   return (

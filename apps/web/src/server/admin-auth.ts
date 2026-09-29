@@ -1,4 +1,4 @@
-import { createHmac, timingSafeEqual } from 'node:crypto';
+import { hmacSign, signatureMatches } from './signing';
 
 /**
  * 管理画面デモの簡易セッション（M0）。署名付きCookieをサーバー側で検証する。
@@ -17,13 +17,9 @@ export function resolveAdminSecret(env: { ADMIN_SESSION_SECRET?: string; APP_ENV
   return env.APP_ENV === 'production' ? null : DEV_ADMIN_SECRET;
 }
 
-function sign(payload: string, secret: string): string {
-  return createHmac('sha256', secret).update(payload).digest('base64url');
-}
-
 export function createAdminToken(secret: string, nowMs: number = Date.now()): string {
   const payload = `v1.${Math.floor(nowMs / 1000)}`;
-  return `${payload}.${sign(payload, secret)}`;
+  return `${payload}.${hmacSign(payload, secret)}`;
 }
 
 export function verifyAdminToken(token: string | undefined, secret: string | null, nowMs: number = Date.now()): boolean {
@@ -34,7 +30,5 @@ export function verifyAdminToken(token: string | undefined, secret: string | nul
   if (!Number.isInteger(issuedAt)) return false;
   const age = Math.floor(nowMs / 1000) - issuedAt;
   if (age < 0 || age > ADMIN_SESSION_TTL_SECONDS) return false;
-  const expected = Buffer.from(sign(`${parts[0]}.${parts[1]}`, secret));
-  const actual = Buffer.from(parts[2] ?? '');
-  return expected.length === actual.length && timingSafeEqual(expected, actual);
+  return signatureMatches(`${parts[0]}.${parts[1]}`, parts[2] ?? '', secret);
 }

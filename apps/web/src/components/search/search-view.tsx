@@ -25,6 +25,7 @@ import type { SearchResponse } from '@worklens/data';
 import { JobCard } from '@/components/jobs/job-card';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/components/ui/toast';
+import { SaveSearchButton } from '@/components/member/save-search-button';
 import { operatorFullName } from '@/lib/site';
 import { track } from '@/lib/track';
 import { cn } from '@/lib/utils';
@@ -230,24 +231,27 @@ export function SearchView({ initial, sourceIds, titleSuffix }: { initial: Searc
                 {loading ? '・更新中' : ''}
               </p>
             </div>
-            <div>
-              <label htmlFor="sort" className="mb-1 block text-xs font-bold text-muted">
-                並び替え
-              </label>
-              <select
-                id="sort"
-                className="field-input max-w-[260px] text-sm"
-                value={query.sort}
-                aria-describedby="sort-description"
-                onChange={(e) => onFilterChange(withPatch(query, { sort: e.target.value as SortValue }))}
-              >
-                {SORT_OPTIONS.map((o) => (
-                  <option key={o.value} value={o.value} disabled={o.value === 'salary' && !query.salaryUnit}>
-                    {o.label}
-                    {o.value === 'salary' && !query.salaryUnit ? '（給与の単位を選ぶと使えます）' : ''}
-                  </option>
-                ))}
-              </select>
+            <div className="flex flex-wrap items-end gap-2">
+              <SaveSearchButton query={query} />
+              <div>
+                <label htmlFor="sort" className="mb-1 block text-xs font-bold text-muted">
+                  並び替え
+                </label>
+                <select
+                  id="sort"
+                  className="field-input max-w-[260px] text-sm"
+                  value={query.sort}
+                  aria-describedby="sort-description"
+                  onChange={(e) => onFilterChange(withPatch(query, { sort: e.target.value as SortValue }))}
+                >
+                  {SORT_OPTIONS.map((o) => (
+                    <option key={o.value} value={o.value} disabled={o.value === 'salary' && !query.salaryUnit}>
+                      {o.label}
+                      {o.value === 'salary' && !query.salaryUnit ? '（給与の単位を選ぶと使えます）' : ''}
+                    </option>
+                  ))}
+                </select>
+              </div>
             </div>
           </div>
           <p className="mt-2 text-xs text-muted" id="sort-description">

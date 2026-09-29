@@ -17,6 +17,7 @@ M0（架空データで動く主要画面の完成）を実装しました。実
 | S07 | 訂正・削除の申請・お問い合わせ（受付番号、CSRF・レート制限・スパム対策。サービスへの問い合わせは対象の求人なしで送信可） | `/report?jobId=` | 実装（申請内容は保存・送信しない） |
 | S08 | 運営会社・収集方針・情報の取扱い・利用規約 | `/about` `/sources` `/privacy` `/terms` | 運営会社は確定情報。ほかは草案（法務確認前） |
 | A01/A02 | ソース一覧・詳細（公開停止／再開・収集ON/OFF・表示方式・審査条件・操作履歴） | `/admin/sources` `/admin/sources/[id]` | デモ（このブラウザのCookieに保存） |
+| 会員 | ログイン・会員登録（Google・Yahoo! JAPAN ID・LINE・Apple・メール）、ヘルプ、マイページ（保存した求人・保存した検索条件と新着メール・最近見た求人・メール配信・ログイン方法・退会）、検索結果の「この条件を保存」（2026-09-29 追加） | `/login` `/login/help` `/mypage` | デモ（外部サービスに接続しない。会員情報はブラウザ内だけ） |
 | B01 | 採用ご担当者へ（訂正・停止の案内、広告は準備中） | `/employers` | 非課金の案内のみ |
 | API | `GET /api/jobs` `GET /api/jobs/:id` `GET /api/jobs/lookup` `GET /api/compare` `POST /api/reports` `GET /out/:listingId` 管理API | — | 実装（fixture） |
 

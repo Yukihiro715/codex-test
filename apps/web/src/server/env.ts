@@ -2,6 +2,7 @@ import 'server-only';
 import { z } from 'zod';
 import { SITE } from '@/lib/site';
 import { resolveAdminSecret } from './admin-auth';
+import { resolveMemberSecret } from './member-auth';
 
 const bool = (fallback: boolean) =>
   z
@@ -26,6 +27,9 @@ const envSchema = z.object({
   SITE_URL: z.url({ protocol: /^https?$/ }).optional(),
   ADMIN_DEMO_LOGIN: bool(true),
   ADMIN_SESSION_SECRET: z.string().min(16).optional(),
+  /** 会員ログインのデモ（外部サービスに接続しない）。APP_ENV=production・DATA_MODE=live では常に無効 */
+  MEMBER_DEMO_LOGIN: bool(true),
+  MEMBER_SESSION_SECRET: z.string().min(16).optional(),
   REPORT_RATE_LIMIT: z.coerce.number().int().positive().default(5),
   REPORT_RATE_WINDOW_SECONDS: z.coerce.number().int().positive().default(600),
 });
@@ -67,6 +71,26 @@ export function getAdminSecret(): string | null {
 /** サイトの公開URL（末尾スラッシュなし）。未設定なら本番ドメイン */
 export function getSiteUrl(): string {
   return (getConfig().SITE_URL ?? SITE.url).replace(/\/+$/, '');
+}
+
+/** 会員セッションの署名キー。本番で MEMBER_SESSION_SECRET が未設定なら null */
+export function getMemberSecret(): string | null {
+  const config = getConfig();
+  return resolveMemberSecret({ MEMBER_SESSION_SECRET: config.MEMBER_SESSION_SECRET, APP_ENV: config.APP_ENV });
+}
+
+/** 会員ログインのデモを使えるか（本番環境・実データでは常に不可） */
+export function isMemberDemoLoginEnabled(): boolean {
+  const config = getConfig();
+  return config.MEMBER_DEMO_LOGIN && config.APP_ENV !== 'production' && config.DATA_MODE === 'demo';
+}
+
+/**
+ * 会員ログインの入口（ヘッダーの「ログイン」など）を出すか。M0 はデモのログインだけ。
+ * M1 で認証ライブラリを設定したら、その設定の有無もここで判定する。
+ */
+export function isMemberLoginAvailable(): boolean {
+  return isMemberDemoLoginEnabled();
 }
 
 /** デモ管理者ログインを使えるか（本番環境では常に不可） */
