@@ -34,14 +34,19 @@ index.html script.js styles.css                 既存のLP（変更なし）
 
 ## 3. 起動方法
 
+リポジトリのフォルダ（`package.json` のある場所）で、1行ずつ実行します。手元のMacでの準備（Node.js・リポジトリの取得・フォルダへの移動）と画面のURLの一覧は README.md の「手元のMacで画面を見る」にあります。
+
 ```bash
-npm ci                                  # Node.js 22.22 以上
-cp apps/web/.env.example apps/web/.env.local   # 任意（既定値で起動可能）
-npm run dev                             # http://localhost:3000
-npm run build && npm run start          # 本番ビルドで起動
-npm run check                           # lint → typecheck → unit → build → e2e
+npm ci
 ```
 
+```bash
+npm run dev
+```
+
+- ブラウザで http://localhost:3000 を開きます。本番ビルドで確認する場合は `npm run build` のあと `npm run start`、全チェックは `npm run check`（lint → typecheck → unit → build → e2e）です。
+- 環境変数は任意です（`apps/web/.env.example` を `apps/web/.env.local` にコピーして変更。既定値のままで起動できます）。
+- Node.js は 22 系を推奨します（24・26 系でも起動を確認済み。`npm ci` で EBADENGINE の警告が出ます）。
 - 外部サービスのキーは不要です。e2e は Playwright の Chromium を使います（未導入なら `npx playwright install chromium`）。
 - 管理画面デモは `/admin/sources` →「デモ管理者としてログイン」。操作はそのブラウザだけに反映され、「デモの操作をリセット」で戻せます。
 - DB・検索エンジン・workerのスクリプト（`db:migrate` `db:seed:demo` `worker`）は M1 で追加します（M0では未実装）。
@@ -98,12 +103,13 @@ e2e は M0 の最終変更の前に3回連続で全件成功しました。2026-
 
 | 項目 | 状態 |
 |---|---|
-| ブランド名・ドメイン | 「求人マップ」・kyujinmap.jp に決定し画面に反映。商標（J-PlatPat）とドメインの取得は未確認 |
-| 運営会社・所在地・問い合わせ窓口 | 株式会社プロセント（Prosent,Inc.）／〒104-0054 東京都中央区勝どき1-3-1-43F を表示。電話番号は載せない。窓口は申請・お問い合わせフォーム。英文社名の表記揺れ（Prosent,Inc.／Prosent.Inc／株式会社Prosent）の確認が必要 |
+| ブランド名・ドメイン | 「求人マップ」・kyujinmap.jp に決定し画面に反映。ドメインは取得済み、商標はこれから出願 |
+| 運営会社・所在地・問い合わせ窓口 | 株式会社プロセント（Prosent,Inc.）／〒104-0054 東京都中央区勝どき1-3-1-43F／電話番号 03-6732-9992 を表示。問い合わせの主な窓口は申請・お問い合わせフォーム。英文社名の表記揺れ（Prosent,Inc.／Prosent.Inc／株式会社Prosent）の確認が必要 |
 | 利用規約・情報の取扱い・収集方針 | 草案を作成（法務確認前）。施行日を `SITE.legal` に設定すると草案表示が外れる。保存期間・委託先と保存国は本番の構成に合わせて確定 |
+| 運営会社のプライバシーポリシー | リリース前に更新する（利用目的の具体的な記載、共用の問い合わせ先、社名表記の統一、委託先と保存先の国、外部送信の扱い） |
 | 募集情報等提供事業の届出 | 出願中。受理番号を `SITE.notification.number` に設定すると運営会社のページに表示 |
 | ホスティング・DB・検索・キュー・バックアップ・エラー通知 | 推奨構成を設計（docs/07）。契約・設定は未実施 |
-| 実ソースの審査記録 | 形式・検査・3件の下書き（いずれも保留）を作成（docs/08、config/source_reviews）。ハローワークは電話番号の方針の判断待ち |
+| 実ソースの審査記録 | 形式・検査・3件の下書き（いずれも保留）を作成（docs/08、config/source_reviews）。ハローワークは電話番号の掲示を解消済みで、本番UAでの robots の再取得・対象パス・取消の反映手順・法務確認が残る |
 | `ADMIN_SESSION_SECRET` と正式な管理者認証 | M1 |
 | アクセス解析 | 導入する場合は送信項目・保存期間を決め、/privacy に記載してから |
 | 広告の契約・料金・請求 | M3（料金・違約金・解除方法の書面等での事前明示が必要） |
@@ -117,4 +123,5 @@ e2e は M0 の最終変更の前に3回連続で全件成功しました。2026-
 - 申請フォーム：「サービスについてのお問い合わせ（個人情報の取扱い・広告掲載を含む）」を追加。対象の求人なしで送信できる。
 - ソース審査：`sourceReviewSchema`・`reviewPolicyViolations`（packages/domain）、審査記録 `config/source_reviews/`（ハローワーク・エンゲージ・ATS の下書きと記入例）、ソース設定が審査の範囲内であることの単体テスト（packages/data）。
 - インフラ：docs/07（Vercel 東京＋Supabase 東京＋Meilisearch Cloud JPN＋Upstash 固定プラン＋Fly.io 東京の worker＋Sentry＋S3 東京、月 $110〜250 の概算）。Node.js の指定を `22.x` に変更。
-- 判断待ち：ハローワーク求人の転載には電話番号の掲示が必要（サイトポリシー・指針 第4の5）。電話番号を載せない方針のままなら扱わない。
+- 電話番号（03-6732-9992）をフッターと運営会社のページに表示（ハローワーク求人の転載条件の1つを満たす）。ドメインは取得済み、商標はこれから出願、運営会社のプライバシーポリシーはリリース前に更新。
+- Node.js 24・26（npm 12）でも `npm ci`・lint・単体テスト・ビルド・`npm run dev` の全画面表示を確認（EBADENGINE の警告のみ）。

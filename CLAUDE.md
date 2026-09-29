@@ -4,7 +4,7 @@
 - 日本語の総合求人検索サービスを作る。職種別に検索条件と比較項目を変える。
 - Mimipoとのシナジーを前提にしない。長期目標は年商100億円、初期は需要と送客の検証。
 - 提携交渉をMVP実装の前提にしない。公開求人の事実情報インデックスを含む段階的な収集方式。
-- サービス名は「求人マップ」（kyujinmap.jp、運営：株式会社プロセント）。内部のコード名はWORKLENS。商標は未確認。
+- サービス名は「求人マップ」（kyujinmap.jp、運営：株式会社プロセント）。内部のコード名はWORKLENS。ドメインは取得済み、商標はこれから出願。
 
 ## Read order
 1. START_HERE.md
@@ -57,5 +57,5 @@
 - 検索条件の状態はURLだけ。条件の意味（不明は適合させない、単位違いを混ぜない等）は `packages/domain` の `searchJobs` と単体テストを基準にし、M1の検索エンジン実装も同じテストで確認する。
 - e2e は `html[data-hydrated]` と `[data-client-ready]` を待ってから操作する（`apps/web/e2e/helpers.ts`）。
 - 仮定・判断は `docs/DECISIONS_LOG.md`、M0の結果と未実施項目は `docs/M0_REPORT.md`。
-- サイト名・運営会社・電話番号（非掲載）・届出番号・規約の施行日は `apps/web/src/lib/site.ts` が正本。利用規約・情報の取扱いは法務確認前の草案。
+- サイト名・運営会社・電話番号・届出番号・規約の施行日は `apps/web/src/lib/site.ts` が正本。利用規約・情報の取扱いは法務確認前の草案。
 - 実ソースの審査記録は `config/source_reviews/`（運用は `docs/08_SOURCE_REVIEWS.md`）。ソース設定は常に審査記録の範囲内（`packages/data` の単体テストで検査）。インフラの推奨は `docs/07_INFRASTRUCTURE.md`。

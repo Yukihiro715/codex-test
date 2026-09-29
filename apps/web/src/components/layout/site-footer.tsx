@@ -14,7 +14,7 @@ const internalLinks = [
 
 /**
  * フッター。運営会社名・所在地・問い合わせ窓口・訂正/削除・利用規約・プライバシー・収集方針を常に表示する。
- * 電話番号は運営者の方針で掲載しない（SITE.operator.phone を設定した場合だけ表示する。問い合わせは申請フォームで受け付ける）。
+ * 電話番号は SITE.operator.phone を設定した場合に表示する（問い合わせの主な窓口は申請・お問い合わせフォーム）。
  */
 export function SiteFooter() {
   const demo = isDemoMode();

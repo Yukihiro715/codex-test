@@ -1,7 +1,7 @@
 /**
  * サービス名・運営会社などのサイト情報（表示の正本はここだけ）。
  * 会社名・所在地は株式会社プロセントの会社概要ページ（https://prosent.co.jp/company）の表記に合わせる。
- * 電話番号は掲載しない（運営者の判断。operator.phone）。問い合わせ・苦情は訂正・削除の申請フォームで受け付ける。
+ * 問い合わせ・苦情・開示等の請求は申請・お問い合わせフォームを主な窓口にする。電話番号は運営会社の情報として掲示する。
  */
 export const SITE = {
   name: '求人マップ',
@@ -18,11 +18,10 @@ export const SITE = {
     companyUrl: 'https://prosent.co.jp/company',
     privacyPolicyUrl: 'https://prosent.co.jp/privacy-policy/',
     /**
-     * 電話番号。運営者の方針で掲載しない（null）。ハローワークの求人を転載する場合は、サイトポリシーと
-     * 職業安定法の指針（第4の5）によりサイト内への掲示が必要（config/source_reviews/hellowork_public.json の HW-1）。
-     * 設定するとフッターと運営会社のページに表示する。
+     * 電話番号（2026-09-29 運営者が掲示を決定）。フッターと運営会社のページに表示する。
+     * ハローワークの求人の転載には、サイト内への掲示が必要（サイトポリシー・職業安定法の指針 第4の5）。
      */
-    phone: null as string | null,
+    phone: '03-6732-9992' as string | null,
   },
   /**
    * 募集情報等提供事業（特定募集情報等提供）の届出。受理番号（形式：51-募-XXXXXX）が届いたら number に設定すると、

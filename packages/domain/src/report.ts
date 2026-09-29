@@ -21,8 +21,8 @@ export type ReportType = (typeof REPORT_TYPES)[number]['value'];
 export const REPORT_DETAILS_MAX = 2000;
 
 /**
- * 対象の求人（IDまたはURL）が必要な申請か。電話窓口を置かないため、このフォームがサービス全般・
- * 個人情報の開示等の問い合わせ窓口も兼ねる（inquiry は対象の求人なしで受け付ける）。
+ * 対象の求人（IDまたはURL）が必要な申請か。このフォームはサービス全般・個人情報の開示等の
+ * 問い合わせの主な窓口も兼ねる（inquiry は対象の求人なしで受け付ける）。
  */
 export function reportNeedsTarget(type: ReportType | '' | undefined): boolean {
   return type !== 'inquiry';

@@ -45,10 +45,10 @@
   "issues": [
     {
       "id": "HW-1",
-      "summary": "転載には、サイト内に運営者の電話番号を掲示する必要がある（サイトポリシー・指針 第4の5）。運営者の方針（電話番号を載せない）と両立しない。",
+      "summary": "転載には、サイト内に運営者の電話番号を掲示する必要がある（サイトポリシー・指針 第4の5）。",
       "severity": "blocker",
-      "status": "open",
-      "resolution": null
+      "status": "resolved",
+      "resolution": "2026-09-29 運営者が電話番号の掲示を決定し、フッター（全ページ）と運営会社のページに表示した。"
     },
     {
       "id": "HW-2",
@@ -101,7 +101,7 @@
   "owner": "運営責任者（未指名）",
   "reviewers": [],
   "legal": { "required": true, "status": "not_requested", "summary": null },
-  "proposal": "電話番号を掲示できる場合に限り、facts_link・index不可・広告不可で、1都道府県×1職種の小さな範囲から承認する。電話番号を掲示しない方針を続けるなら、ハローワークの求人は扱わない（rejected）。",
+  "proposal": "HW-2〜HW-4 に対応し、法務確認を終えたうえで、facts_link・index不可・広告不可で、1都道府県×1職種の小さな範囲から承認する。",
   "decision": "pending",
   "decidedAt": null,
   "expiresAt": null,

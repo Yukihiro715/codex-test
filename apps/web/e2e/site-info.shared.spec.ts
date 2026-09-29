@@ -3,8 +3,9 @@ import { open } from './helpers';
 
 const OPERATOR = '株式会社プロセント（Prosent,Inc.）';
 const ADDRESS = '〒104-0054 東京都中央区勝どき1-3-1-43F';
+const PHONE = '03-6732-9992';
 
-test('サイト名・運営会社・所在地をヘッダーとフッターに表示し、電話番号は載せない', async ({ page }) => {
+test('サイト名・運営会社・所在地・電話番号をヘッダーとフッターに表示する', async ({ page }) => {
   await open(page, '/');
   await expect(page).toHaveTitle(/^求人マップ（デモ）｜/);
   await expect(page.getByRole('link', { name: '求人マップ（デモ） ホーム' })).toBeVisible();
@@ -12,10 +13,8 @@ test('サイト名・運営会社・所在地をヘッダーとフッターに�
   const operator = page.getByTestId('footer-operator');
   await expect(operator).toContainText(OPERATOR);
   await expect(operator).toContainText(ADDRESS);
-  const footerText = (await page.locator('footer').innerText()).replace(/\s+/g, ' ');
-  expect(footerText).not.toContain('電話');
-  expect(footerText).not.toMatch(/0\d{1,4}-\d{1,4}-\d{3,4}/);
-  expect(footerText).not.toContain('未設定');
+  await expect(operator).toContainText(`電話番号${PHONE}`);
+  await expect(page.locator('footer')).not.toContainText('未設定');
 
   const privacy = page.locator('footer').getByRole('link', { name: /^プライバシーポリシー/ });
   await expect(privacy).toHaveAttribute('href', 'https://prosent.co.jp/privacy-policy/');

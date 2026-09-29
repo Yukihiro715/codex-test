@@ -33,12 +33,13 @@ test('求人マップにおける情報の取扱い：運営会社のポリシ�
   await expect(page.locator('main')).toContainText('第三者へ情報を送信させるタグ');
 });
 
-test('運営会社：会社名・所在地・問い合わせ窓口（届出受理番号は未確定のため出さない）', async ({ page }) => {
+test('運営会社：会社名・所在地・電話番号・問い合わせ窓口（届出受理番号は未確定のため出さない）', async ({ page }) => {
   await open(page, '/about');
   await expect(page.getByTestId('draft-badge')).toHaveCount(0);
   const operator = page.getByTestId('about-operator');
   await expect(operator).toContainText('株式会社プロセント（Prosent,Inc.）');
   await expect(operator).toContainText('〒104-0054 東京都中央区勝どき1-3-1-43F');
+  await expect(operator).toContainText('電話番号03-6732-9992');
   await expect(operator).toContainText('求人マップ（kyujinmap.jp）');
   await expect(operator).not.toContainText('届出受理番号');
   await expect(operator.getByRole('link', { name: /お問い合わせ/ })).toHaveAttribute('href', '/report');

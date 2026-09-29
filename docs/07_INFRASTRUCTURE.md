@@ -125,7 +125,7 @@ Web は Vercel のまま、データ基盤を AWS 東京に移します。
 
 ## 10. 契約・設定の手順（検証期）
 
-1. 商標（J-PlatPat で「求人マップ」の区分35・41・42 など）とドメイン kyujinmap.jp の確認・取得（汎用 JP ドメインは国内の住所が必要）。DNS の管理先を決める。
+1. 商標の出願（J-PlatPat で「求人マップ」の区分35・41・42 などの先行登録を確認）。ドメイン kyujinmap.jp は取得済み。DNS の管理先を決め、ホスティングの契約後に接続する。
 2. Vercel（Pro のチーム）。Functions のリージョンを `hnd1` に。Deployment Protection を有効に。
 3. Supabase（Pro・東京）。staging と production を別プロジェクトで。
 4. Meilisearch Cloud（JPN）。

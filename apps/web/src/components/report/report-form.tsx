@@ -10,7 +10,7 @@ type Status = { kind: 'idle' } | { kind: 'submitting' } | { kind: 'done'; receip
 
 /**
  * 訂正・削除の申請フォーム（S07）。返信を希望する場合だけ連絡先を入力する。
- * 電話窓口を置かないため、サービス・個人情報の取扱いについての問い合わせ（inquiry）もここで受け付ける。
+ * サービス・個人情報の取扱い・広告掲載についての問い合わせ（inquiry）もここで受け付ける。
  */
 export function ReportForm({ jobId, jobTitle, defaultUrl = '' }: { jobId: string | null; jobTitle: string | null; defaultUrl?: string }) {
   const [type, setType] = useState<ReportType | ''>('');

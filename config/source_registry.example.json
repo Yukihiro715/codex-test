@@ -43,7 +43,7 @@
       "maxResponseBytes": 5242880,
       "rawRetentionHours": 0,
       "staleHideAfterHours": 48,
-      "activationNote": "審査記録 SR-2026-0001（保留）。転載には運営者の電話番号の掲示が必要（HW-1、未解決）。取消求人を速やかに外すため、確認できない求人は48時間で検索から外す。"
+      "activationNote": "審査記録 SR-2026-0001（保留）。電話番号の掲示は対応済み（HW-1）。本番UAでのrobots再取得・対象パスの確定・取消の反映手順（HW-2〜4）と法務確認が残る。確認できない求人は48時間で検索から外す。"
     },
     {
       "id": "employer_public_template",

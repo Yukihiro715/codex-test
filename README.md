@@ -10,14 +10,42 @@
 - インフラの推奨構成：`docs/07_INFRASTRUCTURE.md`
 - 実ソースの審査記録の運用と現状：`docs/08_SOURCE_REVIEWS.md`（記録は `config/source_reviews/`）
 
-## 起動
+## 手元のMacで画面を見る
+
+ユーザー向けの画面と管理画面（デモ）は、同じ1つのWebアプリに入っています。
+
+1. Node.js を用意します。ターミナルで `node -v` を実行し、`v22.` で始まれば次へ進みます。入っていない・古い場合は https://nodejs.org/ja/download から 22 系を入れます（24・26 系でも起動しますが、`npm ci` のときに EBADENGINE の警告が出ます）。
+2. このリポジトリを手元に置きます。GitHub のリポジトリの画面でブランチ `claude/job-search-m0-implementation-sk1wtc` を選び、「Code」→「Download ZIP」で保存して展開します（git を使う場合は `git clone` のあと `git switch claude/job-search-m0-implementation-sk1wtc`）。
+3. ターミナルで、展開したフォルダに移動します。`cd ` と入力し（cd の後ろに半角スペース）、Finder からフォルダをターミナルへドラッグして Enter を押します。`ls` で `package.json` が見えれば正しい場所です。
+4. 次の2つを1行ずつ実行します。
 
 ```bash
-npm ci                 # Node.js 22（.nvmrc は 22.22.2）
-npm run dev            # http://localhost:3000
+npm ci
 ```
 
-本番ビルドで確認する場合は `npm run build && npm run start`。環境変数は `apps/web/.env.example` を参照してください（既定値のままで起動できます）。
+```bash
+npm run dev
+```
+
+5. ブラウザで http://localhost:3000 を開きます。止めるときはターミナルで Control + C を押します。
+
+`npm ci` はホームフォルダ（`~`）など、`package.json` のない場所で実行すると失敗します。
+
+### 画面のURL（`npm run dev` の実行中）
+
+| 画面 | URL |
+|---|---|
+| ホーム | http://localhost:3000/ |
+| 求人を探す | http://localhost:3000/jobs |
+| 求人の詳細（例） | http://localhost:3000/jobs/demo-driver-1 |
+| 職種から探す（例） | http://localhost:3000/occupations/driver |
+| 比較（例） | http://localhost:3000/compare?ids=demo-driver-1,demo-driver-2,demo-driver-3 |
+| 保存した求人 | http://localhost:3000/saved |
+| 訂正・削除の申請・お問い合わせ | http://localhost:3000/report |
+| 運営会社・利用規約・情報の取扱い・収集方針・採用ご担当者へ | `/about` `/terms` `/privacy` `/sources` `/employers` |
+| 管理画面（デモ）：ソース一覧・詳細 | http://localhost:3000/admin/sources （「デモ管理者としてログイン」を押す） |
+
+本番ビルドで確認する場合は `npm run build` のあと `npm run start`。環境変数は `apps/web/.env.example` を参照してください（既定値のままで起動できます）。
 
 ## よく使うコマンド
 
