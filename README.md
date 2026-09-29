@@ -9,6 +9,8 @@
 - 判断の記録：`docs/DECISIONS_LOG.md`
 - インフラの推奨構成：`docs/07_INFRASTRUCTURE.md`
 - 実ソースの審査記録の運用と現状：`docs/08_SOURCE_REVIEWS.md`（記録は `config/source_reviews/`）
+- 会員機能（ログイン・マイページ）の設計：`docs/09_ACCOUNTS.md`
+- オンラインのデモ環境（Vercel）の作り方：`docs/10_PREVIEW_ENVIRONMENT.md`
 
 ## 手元のMacで画面を見る
 
