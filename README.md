@@ -16,7 +16,13 @@
 
 1. Node.js を用意します。ターミナルで `node -v` を実行し、`v22.` で始まれば次へ進みます。入っていない・古い場合は https://nodejs.org/ja/download から 22 系を入れます（24・26 系でも起動しますが、`npm ci` のときに EBADENGINE の警告が出ます）。
 2. このリポジトリを手元に置きます。GitHub のリポジトリの画面でブランチ `claude/job-search-m0-implementation-sk1wtc` を選び、「Code」→「Download ZIP」で保存して展開します（git を使う場合は `git clone` のあと `git switch claude/job-search-m0-implementation-sk1wtc`）。
-3. ターミナルで、展開したフォルダに移動します。`cd ` と入力し（cd の後ろに半角スペース）、Finder からフォルダをターミナルへドラッグして Enter を押します。`ls` で `package.json` が見えれば正しい場所です。
+3. ターミナルで、展開したフォルダに移動します。ダウンロードフォルダに展開した場合は、次の1行を実行します（`cd` とフォルダの場所は必ず同じ行に書きます）。
+
+```bash
+cd ~/Downloads/codex-test-claude-job-search-m0-implementation-sk1wtc
+```
+
+   別の場所に展開した場合は、`cd ` と入力して（cd の後ろに半角スペース）、Enter を押さずに Finder からフォルダをターミナルへドラッグし、そのあと Enter を押します。`ls` で `package.json` が見えれば正しい場所です。
 4. 次の2つを1行ずつ実行します。
 
 ```bash
@@ -29,7 +35,7 @@ npm run dev
 
 5. ブラウザで http://localhost:3000 を開きます。止めるときはターミナルで Control + C を押します。
 
-`npm ci` はホームフォルダ（`~`）など、`package.json` のない場所で実行すると失敗します。
+`npm ci` はホームフォルダ（`~`）など、`package.json` のない場所で実行すると失敗します。3000番ポートを別のアプリが使っている場合は、`cd apps/web` のあと `npx next dev --port 3001` で起動し、http://localhost:3001 を開きます。
 
 ### 画面のURL（`npm run dev` の実行中）
 
