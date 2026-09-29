@@ -32,7 +32,8 @@ export interface MemberPrefs {
   newsMail: boolean;
 }
 
-export const DEFAULT_MEMBER_PREFS: MemberPrefs = Object.freeze({ history: true, newJobsMail: true, recommendMail: true, newsMail: true });
+/** 初期値：閲覧履歴は残さない（会員が選んだ場合だけ記録）。広告にあたるメールは登録時の同意がある場合だけオン */
+export const DEFAULT_MEMBER_PREFS: MemberPrefs = Object.freeze({ history: false, newJobsMail: false, recommendMail: false, newsMail: true });
 
 interface JsonStore<T> {
   getSnapshot: () => T;

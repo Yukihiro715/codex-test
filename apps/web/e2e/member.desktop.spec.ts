@@ -1,16 +1,24 @@
 import { expect, test } from '@playwright/test';
 import { loginMember, open, waitForClient } from './helpers';
 
-test('ログイン画面：5つのログイン方法・ログイン状態の保持・メール配信・同意・ヘルプ', async ({ page }) => {
+test('ログイン画面：5つのログイン方法・ログイン状態の保持・メール配信（初期値オフ）・同意・ヘルプ', async ({ page }) => {
   await open(page, '/login');
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('ログイン・無料会員登録');
   for (const name of ['Googleで続ける', 'Yahoo! JAPAN IDで続ける', 'LINEで続ける', 'Appleで続ける', 'メールアドレスで続ける']) {
     await expect(page.getByRole('button', { name })).toBeVisible();
   }
   await expect(page.getByRole('checkbox', { name: 'ログイン状態を保持する' })).toBeChecked();
-  await expect(page.getByRole('checkbox', { name: '新着求人・おすすめ求人のメールを受け取る' })).toBeChecked();
+  // 広告にあたるメールの同意は初期値オフで、送信者（運営会社）を明記する
+  await expect(page.getByRole('checkbox', { name: /株式会社プロセント）から、新着求人・おすすめ求人のメールを受け取る/ })).not.toBeChecked();
   await expect(page.getByRole('link', { name: 'ログインでお困りの方' })).toHaveAttribute('href', '/login/help');
-  await expect(page.locator('main').getByRole('link', { name: '利用規約' })).toHaveAttribute('href', '/terms');
+  // 同意の文はボタンより前に表示する
+  const consent = page.getByTestId('login-consent');
+  await expect(consent.getByRole('link', { name: '利用規約' })).toHaveAttribute('href', '/terms');
+  const consentBeforeButtons = await consent.evaluate((el) => {
+    const first = document.querySelector('[aria-busy] button');
+    return first ? Boolean(el.compareDocumentPosition(first) & Node.DOCUMENT_POSITION_FOLLOWING) : false;
+  });
+  expect(consentBeforeButtons).toBe(true);
   await expect(page.getByTestId('login-demo-note')).toContainText('外部のサービスには接続しません');
   await expect(page.getByTestId('member-link')).toHaveText('ログイン');
   await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', /noindex/);
@@ -55,19 +63,25 @@ test('ログイン後は元の検索結果に戻り、検索条件を保存し�
   await expect(saved).toContainText('職種：看護師');
   await expect(saved).toContainText('オンコールなし');
   await expect(saved).toContainText('現在 2件');
+  // 登録時にメールを受け取る選択をしていないので、新着メールは初期値オフ
   const alert = saved.getByRole('checkbox', { name: '新着求人をメールで受け取る' });
-  await expect(alert).toBeChecked();
-  await alert.uncheck();
   await expect(alert).not.toBeChecked();
+  await alert.check();
+  await expect(alert).toBeChecked();
+  await expect(page.locator('#saved-searches')).toContainText('新着求人メールを停止しているため');
   await saved.getByRole('button', { name: /の保存を削除$/ }).click();
   await expect(page.getByTestId('saved-search')).toHaveCount(0);
   await expect(page.locator('#saved-searches')).toContainText('「この条件を保存」を押すと');
 });
 
-test('最近見た求人：ログイン中だけ記録し、設定でオフにできる', async ({ page }) => {
-  await open(page, '/jobs/demo-driver-1');
+test('最近見た求人：初期値は記録しない。オンにした会員のログイン中だけ記録する', async ({ page }) => {
   await loginMember(page);
-  await expect(page.locator('#history')).toContainText('ログイン中に見た求人が、ここに表示されます');
+  await open(page, '/jobs/demo-driver-1');
+  await open(page, '/mypage');
+  await expect(page.locator('#history')).toContainText('閲覧履歴を残さない設定になっています');
+  const toggle = page.getByRole('checkbox', { name: '閲覧履歴を残す' });
+  await expect(toggle).not.toBeChecked();
+  await toggle.check();
 
   await open(page, '/jobs/demo-nurse-1');
   await open(page, '/mypage');
@@ -84,13 +98,13 @@ test('最近見た求人：ログイン中だけ記録し、設定でオフに�
   await expect(page.locator('#history')).toContainText('閲覧履歴を残さない設定になっています');
 });
 
-test('メールアドレスで続ける：形式を確認してからログイン（デモでは送信しない）', async ({ page }) => {
+test('メールアドレスで続ける：形式を確認してから確認コードでログイン（デモでは送信しない）', async ({ page }) => {
   await open(page, '/login');
   await page.getByRole('button', { name: 'メールアドレスで続ける' }).click();
-  await page.getByRole('button', { name: 'ログイン用のリンクを送る' }).click();
+  await page.getByRole('button', { name: '確認コードを送る' }).click();
   await expect(page.getByText('メールアドレスを正しく入力してください')).toBeVisible();
   await page.getByLabel('メールアドレス', { exact: true }).fill('user@example.com');
-  await page.getByRole('button', { name: 'ログイン用のリンクを送る' }).click();
+  await page.getByRole('button', { name: '確認コードを送る' }).click();
   await expect(page).toHaveURL('/mypage');
   await expect(page.getByTestId('mypage-member')).toContainText('メールアドレスでログイン中');
 });

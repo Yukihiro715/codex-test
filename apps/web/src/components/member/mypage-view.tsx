@@ -272,7 +272,9 @@ export function MyPageView({ member }: { member: MemberSummary }) {
             }
           >
             {historyIds.length === 0 ? (
-              <p className="text-sm text-muted">{prefs.history ? 'ログイン中に見た求人が、ここに表示されます。' : '閲覧履歴を残さない設定になっています。'}</p>
+              <p className="text-sm text-muted">
+                {prefs.history ? 'ログイン中に見た求人が、ここに表示されます。' : '閲覧履歴を残さない設定になっています。オンにすると、これからログイン中に見た求人をここに表示します。'}
+              </p>
             ) : (
               <ul className="divide-y divide-line-soft" data-testid="mypage-history">
                 {historyPreviewIds.map((id) => {
@@ -282,7 +284,7 @@ export function MyPageView({ member }: { member: MemberSummary }) {
               </ul>
             )}
             <div className="mt-3 border-t border-line-soft pt-3">
-              <PrefCheckbox prefs={prefs} prefKey="history" label="閲覧履歴を残す" hint="オフにすると、これから見た求人を記録しません。" />
+              <PrefCheckbox prefs={prefs} prefKey="history" label="閲覧履歴を残す" hint="初期値はオフです。履歴は「最近見た求人」の表示だけに使います。" />
             </div>
           </Section>
 

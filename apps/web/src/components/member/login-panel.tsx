@@ -24,7 +24,8 @@ const BENEFITS = [
  */
 export function LoginPanel({ next, member }: { next: string; member: MemberSummary | null }) {
   const [remember, setRemember] = useState(true);
-  const [mailOptIn, setMailOptIn] = useState(true);
+  // 広告にあたるメールの同意は初期値オフ（特定電子メール法のガイドラインの推奨）
+  const [mailOptIn, setMailOptIn] = useState(false);
   const [pending, setPending] = useState<MemberProviderId | null>(null);
   const [emailOpen, setEmailOpen] = useState(false);
   const [email, setEmail] = useState('');
@@ -95,10 +96,15 @@ export function LoginPanel({ next, member }: { next: string; member: MemberSumma
       </ul>
 
       <p className="mt-5 rounded-xl bg-page p-3 text-xs leading-relaxed text-muted" data-testid="login-demo-note">
-        デモ：外部のサービスには接続しません。どのボタンを押しても、架空の会員としてログインします。ボタンのロゴは、本番で各サービスの公式デザインに置き換えます。
+        デモ：外部のサービスには接続しません。どのボタンを押しても、架空の会員としてログインします。ボタンは本番で各サービスの公式デザイン（ロゴ入り。LINE は緑のボタン）に置き換えます。
       </p>
 
-      <div className="mt-5 space-y-3" aria-busy={pending !== null}>
+      <p className="mt-5 text-sm leading-relaxed" data-testid="login-consent">
+        ボタンを押してログイン・会員登録をすると、<Link href="/terms">利用規約</Link>と<Link href="/privacy">求人マップにおける情報の取扱い</Link>
+        に同意したものとします。
+      </p>
+
+      <div className="mt-4 space-y-3" aria-busy={pending !== null}>
         {MEMBER_PROVIDERS.map((provider) => {
           const isEmail = provider.id === 'email';
           return (
@@ -136,7 +142,7 @@ export function LoginPanel({ next, member }: { next: string; member: MemberSumma
             aria-describedby={emailError ? 'login-email-hint login-email-error' : 'login-email-hint'}
           />
           <p id="login-email-hint" className="mt-1 text-xs text-muted">
-            ログイン用のリンクをメールでお送りします（デモでは送信せず、入力したアドレスも保存しません）。
+            6桁の確認コードをメールでお送りします（デモでは送信せず、入力したアドレスも保存しません）。
           </p>
           {emailError ? (
             <p id="login-email-error" className="mt-1 text-sm font-bold text-danger">
@@ -144,7 +150,7 @@ export function LoginPanel({ next, member }: { next: string; member: MemberSumma
             </p>
           ) : null}
           <Button type="submit" className="mt-3 w-full" disabled={pending !== null}>
-            ログイン用のリンクを送る
+            確認コードを送る
           </Button>
         </form>
       ) : null}
@@ -159,10 +165,10 @@ export function LoginPanel({ next, member }: { next: string; member: MemberSumma
         </p>
         <label className="check-row font-bold">
           <input type="checkbox" checked={mailOptIn} onChange={(e) => setMailOptIn(e.target.checked)} aria-describedby="login-mail-hint" />
-          <span>新着求人・おすすめ求人のメールを受け取る</span>
+          <span>求人マップ（株式会社プロセント）から、新着求人・おすすめ求人のメールを受け取る</span>
         </label>
         <p id="login-mail-hint" className="pl-[30px] text-xs text-muted">
-          マイページからいつでも停止できます。
+          受け取る場合はチェックを入れてください。マイページからいつでも停止できます。
         </p>
       </div>
 
@@ -176,10 +182,6 @@ export function LoginPanel({ next, member }: { next: string; member: MemberSumma
         <Link href="/login/help" className="inline-flex min-h-11 items-center font-bold">
           ログインでお困りの方
         </Link>
-      </p>
-      <p className="mt-2 text-xs leading-relaxed text-muted" data-testid="login-consent">
-        ログイン・会員登録をすると、<Link href="/terms">利用規約</Link>と<Link href="/privacy">求人マップにおける情報の取扱い</Link>
-        に同意したものとします。
       </p>
     </>
   );
